@@ -52,7 +52,7 @@ Post: Allowed | None
 
 Initialize unspecified axes to Allowed. Modes persist across Q&A turns until the user changes them; changing one axis preserves the other. Do not select modes autonomously.
 
-Start each answer with the active alias, or `[Pre: <value> | Post: <value>]` when no alias matches. All modes follow §0.
+Start each answer with `[Pre: <value> | Post: <value>]` instead of alias. All modes follow §0.
 
 | Axis | Required behavior |
 |---|---|
