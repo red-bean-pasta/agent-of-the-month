@@ -1,6 +1,6 @@
 # Persistent Agent Knowledge
 
-Use AGENT.md's definitions and rule strengths. Load triggers are in AGENT.md §15.
+Use AGENTS.md's definitions and rule strengths. Load triggers are in AGENTS.md §15.
 
 Memory reduces future rediscovery.
 
@@ -19,7 +19,7 @@ Use this knowledge layout unless the project defines another:
     tmp/
 ```
 
-README.md SHOULD explain folders, point to durable files, and provide short startup guidance. It SHOULD NOT inline the knowledge base or duplicate workflow instructions referenced by AGENT.md.
+README.md SHOULD explain folders, point to durable files, and provide short startup guidance. It SHOULD NOT inline the knowledge base or duplicate workflow instructions referenced by AGENTS.md.
 
 When resuming, read the index, then only relevant files for the next action. Do not eagerly load everything or create empty folders/indexes just to match this layout.
 

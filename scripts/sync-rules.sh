@@ -25,7 +25,7 @@ PrintHelp() {
   cat >&2 <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Scan AI agent state directories on Linux and synchronize AGENT.md and subrules/.
+Scan AI agent state directories on Linux and synchronize AGENTS.md and subrules/.
 
 Options:
   -h, --help      Show this help message and exit
@@ -283,13 +283,13 @@ CopyRulesToTarget() {
 
   if [[ "$Dry_Run" == true ]]; then
     Log "  [dry-run] mkdir -p \"$target_path\""
-    Log "  [dry-run] cp \"$Repo_Root/AGENT.md\" \"$target_path/AGENT.md\""
+    Log "  [dry-run] cp \"$Repo_Root/AGENTS.md\" \"$target_path/AGENTS.md\""
     Log "  [dry-run] rsync -ac --delete \"$Repo_Root/subrules/\" \"$target_path/subrules/\""
     return 0
   fi
 
   mkdir -p "$target_path"
-  cp "$Repo_Root/AGENT.md" "$target_path/AGENT.md"
+  cp "$Repo_Root/AGENTS.md" "$target_path/AGENTS.md"
 
   if command -v rsync >/dev/null 2>&1; then
     mkdir -p "$target_path/subrules"
@@ -349,8 +349,8 @@ Main() {
   ParseArgs "$@"
 
   # Validate source files exist
-  if [[ ! -f "$Repo_Root/AGENT.md" ]]; then
-    LogError "AGENT.md not found at $Repo_Root/AGENT.md"
+  if [[ ! -f "$Repo_Root/AGENTS.md" ]]; then
+    LogError "AGENTS.md not found at $Repo_Root/AGENTS.md"
     exit 1
   fi
 

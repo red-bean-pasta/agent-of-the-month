@@ -182,7 +182,7 @@ Current code/config and observed test results establish actual behavior. Current
 
 # 15. Triggered workflows
 
-Read only when triggered; resolve paths relative to this AGENT.md:
+Read only when triggered; resolve paths relative to this AGENTS.md:
 - `subrules/memory.md`: resuming work, handoffs, and end-of-Q&A recording. At the end of every Q&A turn, record the normalized user request and concise agent response/outcome per memory.md §8; also preserve findings that prevent expensive rediscovery or repeated mistakes. Prefer persistent files for information future tasks need instead of relying on conversation context. No user request is needed. Defer routine recording until the end of the turn so it does not interrupt task execution.
 - `subrules/instruction-authoring.md`: editing, evaluating, or restructuring agent instructions.
 

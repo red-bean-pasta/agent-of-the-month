@@ -30,7 +30,7 @@ Negative instructions SHOULD name the replacement behavior. Replace “Do not ov
 
 # 5. Rule strength
 
-Use AGENT.md's keyword/confidence definitions; do not redefine them. Write “prefer” and “avoid” as SHOULD / SHOULD NOT; agents treat the bare words as optional. State triggers directly instead of weakening them with “optional” or permission wording.
+Use AGENTS.md's keyword/confidence definitions; do not redefine them. Write “prefer” and “avoid” as SHOULD / SHOULD NOT; agents treat the bare words as optional. State triggers directly instead of weakening them with “optional” or permission wording.
 
 # 6. Quantification
 
@@ -56,7 +56,7 @@ Test actions and false positives, not how persuasive the instruction sounds:
 | Case | Expected behavior |
 |---|---|
 | Impossible internal state | Assert/error; no guessed fallback |
-| Tiny local change | Reads needed for the named next-action decision, including relevant conventions/utilities; each conceptual read follows AGENT.md §0; no repository-wide investigation |
+| Tiny local change | Reads needed for the named next-action decision, including relevant conventions/utilities; each conceptual read follows AGENTS.md §0; no repository-wide investigation |
 | Existing utility | Bounded lookup; reuse if appropriate, otherwise implement once the next action is clear |
 | Method decomposition | Named conceptual children; no mixed-responsibility god method |
 | One-caller concept | Extract when the block separates a conceptual operation; line count and "and" are review heuristics, not extraction requirements; reuse is not a prerequisite |
@@ -67,7 +67,7 @@ Test actions and false positives, not how persuasive the instruction sounds:
 | Post: None | No post-edit verification or false verification claim |
 | Already-good implementation | No unnecessary restructuring |
 
-Before each run, specify the expected next action and forbidden action. Judge with AGENT.md's definitions; reconsideration heuristics do not mandate extraction. Record observed actions and traces. Narrow rules that trigger unnecessary action in already-good cases.
+Before each run, specify the expected next action and forbidden action. Judge with AGENTS.md's definitions; reconsideration heuristics do not mandate extraction. Record observed actions and traces. Narrow rules that trigger unnecessary action in already-good cases.
 
 # 10. Process evaluation
 
