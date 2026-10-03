@@ -12,14 +12,15 @@ Use this knowledge layout under `.aiassistant/`:
 .aiassistant/
     README.md
     notebooks/<topic>.md
-    intent/<topic>.md
-    intent/handoff_<topic>.md
+    intent/<action>.md
+    intent/handoff_<action>.md
     tmp/
 ```
 
-- Topic filenames MUST use lowercase kebab-case (e.g. `docker-rootless.md`, `sync-rules.md`).
+- Topic filenames in `notebooks/` MUST use lowercase kebab-case (e.g. `docker-rootless.md`, `sync-rules.md`).
+- Intent filenames MUST use verb-based action names (e.g. `create_readme.md`, `refactor_sync_rules.md`) to represent the active task or goal.
 - `README.md` SHOULD explain folder purposes and list active topic files. It SHOULD NOT duplicate file contents or AGENTS.md rules.
-- When resuming or looking up context, query by topic filename (e.g. `ls .aiassistant/notebooks/`). Read only files directly relevant to the current task. Do not eagerly load all files.
+- When resuming or looking up context, query by topic or action filename (e.g. `ls .aiassistant/notebooks/`). Read only files directly relevant to the current task. Do not eagerly load all files.
 
 # 2. Technical notebooks
 
@@ -44,10 +45,10 @@ When an existing notebook grows beyond HEURISTIC: 300 lines, split it into small
 
 # 4. Intent and task history
 
-Use `intent/<topic>.md` to log user-agent interactions, decisions, and outcomes. Both intent logs and handoffs MUST use descriptive topic names rather than dates. Dates prevent filename-level querying, cluster unrelated tasks together, and create unmaintainable giant logs.
+Use `intent/<action>.md` to log user-agent interactions, decisions, and outcomes. Both intent logs and handoffs MUST use descriptive, verb-based action names (e.g. `intent/create_readme.md`, `intent/refactor_sync_rules.md`) representing the primary action or goal, rather than bare nouns (e.g. `intent/readme.md`) or dates. Verbs clarify the active goal and task boundary at the file level; dates and bare nouns prevent filename-level querying, cluster unrelated tasks together, and obscure task boundaries.
 
 ## Turn entries
-At the end of every Q&A turn, append a dated entry to `intent/<topic>.md`:
+At the end of every Q&A turn, append a dated entry to `intent/<action>.md`:
 
 ```markdown
 ## <Specific Subtask or Question> [YYYY-MM-DD]
@@ -56,17 +57,17 @@ At the end of every Q&A turn, append a dated entry to `intent/<topic>.md`:
 - **Agent:** Concise outcome, implementation/verification state, decisions made, and reasons.
 ```
 
-Start a new `intent/<new-topic>.md` when the primary issue or task behind the request is distinct from the active file's topic and involves nontrivial work. When uncertain whether the topic has shifted, start a new topic file: creating new files is not discouraged.
+Start a new `intent/<new-action>.md` when the primary issue or task behind the request is distinct from the active file's action and involves nontrivial work. When uncertain whether the action has shifted, start a new action file: creating new files is not discouraged.
 
 ## Handoffs
-When work remains unfinished across sessions, write an unnormalized task handoff to `intent/handoff_<topic>.md`. A handoff supplements, rather than replaces, the turn's entry in `intent/<topic>.md`.
+When work remains unfinished across sessions, write an unnormalized task handoff to `intent/handoff_<action>.md`. A handoff supplements, rather than replaces, the turn's entry in `intent/<action>.md`.
 
 A handoff file MUST contain:
 - Current task objective and constraints.
 - Exact progress state, completed edits, and remaining work.
 - Unresolved obstacles, caveats, and next concrete actions.
 
-Delete `intent/handoff_<topic>.md` once the handed-off task is resumed and completed.
+Delete `intent/handoff_<action>.md` once the handed-off task is resumed and completed.
 
 # 5. Temporary scratch
 
