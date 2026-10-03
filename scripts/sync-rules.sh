@@ -115,67 +115,37 @@ AddAgentCandidate() {
 }
 
 ScanStateDirectories() {
-  # 1. Standalone Codex CLI (Default)
+  # 1. OpenAI Codex
   if [[ -d "$HOME/.codex" ]]; then
     AddAgentCandidate "Codex" "$HOME/.codex"
   fi
 
-  # 2. Custom JetBrains ACP Codex (configured via ~/.jetbrains/acp.json)
-  if [[ -f "$HOME/.jetbrains/acp.json" ]]; then
-    local custom_codex_home=""
-    if command -v jq >/dev/null 2>&1; then
-      custom_codex_home=$(jq -r '.agent_servers[]?.env?.CODEX_HOME // empty' "$HOME/.jetbrains/acp.json" 2>/dev/null | head -n1 || true)
-    else
-      custom_codex_home=$(grep -oP '"CODEX_HOME"\s*:\s*"\K[^"]+' "$HOME/.jetbrains/acp.json" 2>/dev/null | head -n1 || true)
-    fi
-
-    if [[ -n "$custom_codex_home" && -d "$custom_codex_home" ]]; then
-      AddAgentCandidate "Codex (JetBrains ACP)" "$custom_codex_home"
-    fi
-  fi
-
-  # Fallback check for ~/.jetbrain-codex-personal if not picked up by acp.json
-  if [[ -d "$HOME/.jetbrain-codex-personal" ]]; then
-    AddAgentCandidate "Codex (JetBrains Personal)" "$HOME/.jetbrain-codex-personal"
-  fi
-
-  # 3. Google Antigravity CLI
+  # 2. Google Antigravity CLI
   if [[ -d "$HOME/.gemini/antigravity-cli" ]]; then
     AddAgentCandidate "Antigravity CLI" "$HOME/.gemini/antigravity-cli"
   fi
 
-  # 4. Google Antigravity ACP (JetBrains integration)
-  # Check if directory exists OR if antigravity-acp is installed in JetBrains ACP registry
-  local has_antigravity_acp=false
+  # 3. Google Antigravity ACP
   if [[ -d "$HOME/.gemini/antigravity-acp" ]]; then
-    has_antigravity_acp=true
-  elif [[ -f "$HOME/.local/share/JetBrains/acp-agents/installed.json" ]] && \
-       grep -q "antigravity-acp" "$HOME/.local/share/JetBrains/acp-agents/installed.json" 2>/dev/null; then
-    has_antigravity_acp=true
-  elif compgen -G "$HOME/.cache/JetBrains/*/acp-agents/antigravity-acp" >/dev/null 2>&1; then
-    has_antigravity_acp=true
-  fi
-
-  if [[ "$has_antigravity_acp" == true ]]; then
     AddAgentCandidate "Antigravity ACP" "$HOME/.gemini/antigravity-acp"
   fi
 
-  # 5. Google Antigravity Global Machine Config
+  # 4. Google Antigravity Global Config
   if [[ -d "$HOME/.gemini/config" ]]; then
     AddAgentCandidate "Antigravity Global Config" "$HOME/.gemini/config"
   fi
 
-  # 6. Legacy Gemini CLI (if separate directory exists)
+  # 5. Legacy Gemini CLI (if separate directory exists)
   if [[ -d "$HOME/.gemini/gemini" ]]; then
     AddAgentCandidate "Gemini CLI" "$HOME/.gemini/gemini"
   fi
 
-  # 7. Claude Code CLI
+  # 6. Claude Code CLI
   if [[ -d "$HOME/.claude" ]]; then
     AddAgentCandidate "Claude" "$HOME/.claude"
   fi
 
-  # 8. GitHub Copilot CLI
+  # 7. GitHub Copilot CLI
   if [[ -d "$HOME/.copilot" ]]; then
     AddAgentCandidate "GitHub Copilot" "$HOME/.copilot"
   fi
@@ -284,11 +254,8 @@ PromptTargetSelection() {
     Log "  ${C}${idx}${I}. ${Agent_Names[$i]}${rule_badge}"
   done
 
-  local opt_no_rules=$(( total + 1 ))
-  local opt_all=$(( total + 2 ))
-
-  Log "  ${C}${opt_no_rules}${I}. All without rules"
-  Log "  ${C}${opt_all}${I}. All"
+  Log "  ${C}a${I}. All"
+  Log "  ${C}n${I}. All without rules"
   Log "  ${C}q${I}. Quit without installing"
   Log ""
 
@@ -338,21 +305,19 @@ CopyRulesToTarget() {
 ExecuteInstall() {
   local choice="$1"
   local total=${#Agent_Names[@]}
-  local opt_no_rules=$(( total + 1 ))
-  local opt_all=$(( total + 2 ))
 
-  if [[ "$choice" == "q" || "$choice" == "Q" || "$choice" == "quit" || -z "$choice" ]]; then
+  if [[ "$choice" =~ ^(q|Q|quit)$ || -z "$choice" ]]; then
     Log "Operation cancelled. Exiting."
     exit 0
   fi
 
   local targets_to_install=()
 
-  if [[ "$choice" == "$opt_all" ]]; then
+  if [[ "$choice" =~ ^(a|A)$ ]]; then
     local i; for (( i=0; i<total; i++ )); do
       targets_to_install+=("$i")
     done
-  elif [[ "$choice" == "$opt_no_rules" ]]; then
+  elif [[ "$choice" =~ ^(n|N)$ ]]; then
     local i; for (( i=0; i<total; i++ )); do
       if [[ "${Agent_Has_Rules[$i]}" == "false" ]]; then
         targets_to_install+=("$i")
