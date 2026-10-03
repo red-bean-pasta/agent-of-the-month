@@ -152,39 +152,49 @@ AddAgentCandidate() {
 }
 
 ScanStateDirectories() {
-  # 1. OpenAI Codex
+  # OpenAI Codex
   if [[ -d "$HOME/.codex" ]]; then
     AddAgentCandidate "Codex" "$HOME/.codex"
   fi
 
-  # 2. Google Antigravity CLI
-  if [[ -d "$HOME/.gemini/antigravity-cli" ]]; then
-    AddAgentCandidate "Antigravity CLI" "$HOME/.gemini/antigravity-cli"
-  fi
-
-  # 3. Google Antigravity ACP
-  if [[ -d "$HOME/.gemini/antigravity-acp" ]]; then
-    AddAgentCandidate "Antigravity ACP" "$HOME/.gemini/antigravity-acp"
-  fi
-
-  # 4. Google Antigravity Global Config
-  if [[ -d "$HOME/.gemini/config" ]]; then
-    AddAgentCandidate "Antigravity Global Config" "$HOME/.gemini/config"
-  fi
-
-  # 5. Legacy Gemini CLI (if separate directory exists)
-  if [[ -d "$HOME/.gemini/gemini" ]]; then
-    AddAgentCandidate "Gemini CLI" "$HOME/.gemini/gemini"
-  fi
-
-  # 6. Claude Code CLI
+  # Claude Code CLI
   if [[ -d "$HOME/.claude" ]]; then
     AddAgentCandidate "Claude" "$HOME/.claude"
   fi
 
-  # 7. GitHub Copilot CLI
+  # GitHub Copilot CLI
   if [[ -d "$HOME/.copilot" ]]; then
     AddAgentCandidate "GitHub Copilot" "$HOME/.copilot"
+  fi
+
+  # Google Antigravity Desktop
+  if [[ -d "$HOME/.gemini/antigravity" ]]; then
+    AddAgentCandidate "Antigravity Desktop" "$HOME/.gemini/antigravity"
+  fi
+
+  # Google Antigravity IDE
+  if [[ -d "$HOME/.gemini/antigravity-ide" ]]; then
+    AddAgentCandidate "Antigravity IDE" "$HOME/.gemini/antigravity-ide"
+  fi
+
+  # Google Antigravity CLI
+  if [[ -d "$HOME/.gemini/antigravity-cli" ]]; then
+    AddAgentCandidate "Antigravity CLI" "$HOME/.gemini/antigravity-cli"
+  fi
+
+  # Google Antigravity ACP
+  if [[ -d "$HOME/.gemini/antigravity-acp" ]]; then
+    AddAgentCandidate "Antigravity ACP" "$HOME/.gemini/antigravity-acp"
+  fi
+
+  # Google Antigravity Global Config
+  if [[ -d "$HOME/.gemini/config" ]]; then
+    AddAgentCandidate "Antigravity Global Config" "$HOME/.gemini/config"
+  fi
+
+  # Legacy Gemini CLI (if separate directory exists)
+  if [[ -d "$HOME/.gemini/gemini" ]]; then
+    AddAgentCandidate "Gemini CLI" "$HOME/.gemini/gemini"
   fi
 }
 
