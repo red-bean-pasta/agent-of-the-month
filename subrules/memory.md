@@ -29,11 +29,13 @@ Preserve findings that prevent expensive rediscovery or repeated mistakes: archi
 
 Do not persist obvious/directly searchable facts, routine implementation details, transient progress, raw scratch reasoning, or information with no expected future use. Specialized knowledge can still be valuable beyond its originating task.
 
+Exception: record web search results that informed an action, even though they are searchable, because the source and access date show what the agent relied on and let the next agent check freshness. An entry holds the finding in your own words, the source URL, the access date, and the decision it informed; do not paste page content. Write it at the end of the Q&A turn in `notebooks/<topic>.md`.
+
 # 3. Durable notebooks and freshness
 
 Use `.aiassistant/notebooks/<topic>.md` for broadly reusable technical knowledge. SHOULD use focused, descriptively named files instead of one large diary. Include a concise fact, why it matters, file/symbol references, caveats, and a date when freshness matters.
 
-If a stale-sensitive fact alters the next action, compare it with current source/documentation before relying on it. Freshness checks follow the active modes; do not perform post-edit verification under Post: None. Label unchecked claims unverified. Do not automatically promote observations into project policy.
+If a stale-sensitive fact alters the next action, compare it with current source/documentation before relying on it. Freshness checks follow the active modes. Label unchecked claims unverified. Do not automatically promote observations into project policy.
 
 # 4. Specialized investigations
 
@@ -91,7 +93,7 @@ Each entry contains:
 
 Record the substance, not the transcript, progress narration, or hidden reasoning. A trivial exchange needs only a brief request/outcome entry. Do not invent verification to complete the record.
 
-Prefer files over conversation context for information needed by future tasks: context may be lost across sessions. Intent records why and the response/outcome; Git usually records what changed. Reusable technical findings belong in notebooks/investigations, with references from intent instead of duplicate content. Apply §2's selection criteria to technical knowledge; the per-turn intent entry is a separate requirement.
+SHOULD use files instead of conversation context for information needed by future tasks: context may be lost across sessions. Intent records why and the response/outcome; Git usually records what changed. Reusable technical findings belong in notebooks/investigations, with references from intent instead of duplicate content. Apply §2's selection criteria to technical knowledge; the per-turn intent entry is a separate requirement.
 
 # 9. Handoffs
 

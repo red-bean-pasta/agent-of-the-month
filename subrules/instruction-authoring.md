@@ -66,6 +66,10 @@ Test actions and false positives, not how persuasive the instruction sounds:
 | Static Pre | Context reading/searching allowed; read/search commands allowed; no executing project behavior, tests, builds, or runtime probes during preparation |
 | Post: None | No post-edit verification or false verification claim |
 | Already-good implementation | No unnecessary restructuring |
+| Question answerable from one local file | Local read; no web search |
+| Web search misses | Query changed materially or target switched; searching stops after about 3 tool calls without a usable result (heuristic) |
+| Script writing only regenerable build output | Runs on the host; no Docker |
+| Step that would change system configuration | Rootless Docker, or propose and wait; never the host, never rootful Docker |
 
 Before each run, specify the expected next action and forbidden action. Judge with AGENTS.md's definitions; reconsideration heuristics do not mandate extraction. Record observed actions and traces. Narrow rules that trigger unnecessary action in already-good cases.
 

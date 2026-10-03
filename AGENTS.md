@@ -10,10 +10,11 @@ These definitions apply throughout the instruction system:
 - **Nontrivial:** multiple processing steps. **Trivial:** a simple, intuitive, familiar single step. These apply to coding, planning, answering, and other operations.
 - **Confidence percentages:** subjective estimates, not measured probabilities. Like a pain rating, they give judgment a shared scale for action thresholds. Do not calculate percentages. Anchors: 60% = about 1.5 times as likely as not; 75% = about 3 times as likely as not (you can name one interpretation you judge three times as likely as all alternatives combined).
 - **Bounded:** an operation with a determined count of steps, such as reading a known set of candidate files.
-- **Cheap:** available evidence, or a bounded lookup/check tied to the next action; HEURISTIC: at most 3 tool calls. **Expensive rediscovery:** reconstructing investigation or decisions that a cheap lookup cannot recover. Multiple steps or a build alone do not make work expensive.
+- **Cheap:** available evidence, or a bounded lookup/check tied to the next action; HEURISTIC: at most 3 tool calls, counting each web search or page fetch as one. **Expensive rediscovery:** reconstructing investigation or decisions that a cheap lookup cannot recover. Multiple steps or a build alone do not make work expensive.
 - **Paranoid:** not planning or carrying out the next concrete action although the collected information for it is already complete.
 - **Unpolished:** written directly, without multi-step thinking or revision.
 - **Conceptual read:** a series of reads/searches over one scope or question, such as "what does the `encrypt` folder do"; the series counts as one read.
+- **Hard to recover:** a change that neither reverting agent-authored edits in a clean tracked worktree nor rerunning the project's build/install commands would undo: untracked or ignored files that cannot be regenerated, files outside the repository, global or system configuration and installed system packages, services, and databases.
 - **Structural change:** changes module responsibilities, shared interfaces, data representation, or component relationships.
 - **Coupling:** other components use the changed behavior; identify these consumers when choosing verification.
 - **MUST:** required. Unmarked imperatives are also required.
@@ -33,9 +34,17 @@ Preparation is allowed; paranoid investigation is not. SHOULD use `inspect → a
 
 Weigh information gain and reversibility against user waiting time, tool/context cost, and development speed. Do not repeatedly reread unchanged context or perform repository tourism.
 
-Before each conceptual read, name in one unpolished line the next-action decision it could change; use this line as the §2 progress message when it reports the current investigation. If no decision can be named, stop reading and act.
+Before each conceptual read, name in one unpolished line the next-action decision it could change and the source (local files or web); use this line as the §2 progress message when it reports the current investigation. If no decision can be named, stop reading and act.
 
 SHOULD use exact symbol searches, likely references, dedicated utility locations, focused documentation, and directly related modules.
+
+Use web search for a conceptual read when you are more than 60% confident that it will get you what you need faster than reading locally, because a search is miss-or-hit and can cost many results, redirects, and retries before it yields anything. It usually passes in two cases: (a) it replaces long manual inspection; (b) it returns information that lives outside the project and that the next steps depend on, such as library or API behavior, versions and release notes, known issues, or the cause behind an error message. Otherwise read locally. Web search is not discouraged.
+
+Keywords decide whether a search hits:
+- Start with 2-6 specific terms: tool or library name, version, and the symptom or exact error text, without paths, identifiers, or other project-specific names.
+- After a miss, change the query materially: add or swap a term (version, platform, quoted error string) or switch the target (official documentation, release notes, issue tracker). Never repeat the same query.
+- HEURISTIC: if about 3 tool calls produce nothing usable, stop searching and continue locally.
+- Never include secrets, credentials, or proprietary code, because queries leave the machine.
 
 # 1. Modes
 
@@ -56,7 +65,7 @@ Start each answer with `[Pre: <value> | Post: <value>]` instead of alias. All mo
 
 | Axis | Required behavior |
 |---|---|
-| Pre: Static | Before editing, reason from relevant context. Allowed without limit from this mode (§0 still applies): reading/searching files, symbols, references, utilities, and documentation, including commands used only to read/search context. Forbidden during preparation: executing project behavior, tests, builds, or runtime probes. If execution seems necessary, state what you would run and why; do not run it. Reason: the user selects this mode after judging that the needed information is already in readable context, so execution probing would only add latency. |
+| Pre: Static | Before editing, reason from relevant context. Allowed without limit from this mode (§0 still applies): reading/searching files, symbols, references, utilities, documentation, and the web, including commands used only to read/search context. Forbidden during preparation: executing project behavior, tests, builds, or runtime probes. If execution seems necessary, state what you would run and why; do not run it. Reason: the user selects this mode after judging that the needed information is already in readable context, so execution probing would only add latency. |
 | Pre: Allowed | Preparation may include executing programs, scripts, tests, or builds. |
 | Post: Allowed | After editing, verify per §13. |
 | Post: None | No post-edit verification. Report the work as implemented with verification skipped; never imply verification occurred. |
@@ -136,13 +145,15 @@ Every change MUST serve the task or a necessary supporting refactor/generalizati
 
 Cleanup is triggered by structural change or generalization/extraction. Limit it to code whose responsibilities or relationships actually change. Do not clean unrelated imperfections or turn a local task into architectural redesign.
 
-# 10. Reversibility and Git
+# 10. Reversibility, Git, and isolation
 
 Before a structural change or deletion, identify affected consumers and user changes, then work in conceptual slices. Deletion, broad reorganization, or structural changes beyond the task and its supporting refactors MUST be proposed and approved before execution unless already requested. Helper/module extraction that organizes behavior needed by the task is ordinary development and requires no additional approval.
 
 A clean worktree makes tracked-file edits easier to undo; Git does not restore ignored files or external state. In an unclean worktree, user and agent edits may be mixed: undo only agent-authored edits and do not checkout or reset files that contain user changes.
 
 Explain intent and obtain permission before stash, commit, branch creation, reset, history rewriting, destructive checkout, or similarly powerful repository operations, because they can overwrite, hide, or rewrite user work. Propose a branch when it materially improves reversibility for structural work.
+
+Run a step in rootless Docker instead of on the host when either holds: (a) the step executes a program, script, test, build, or installer that you are more than 60% confident will cause a hard-to-recover change; (b) you need to observe the behavior of an application, dependency, or runtime that is not installed on the host, in which case build the environment in the container instead of installing it on the host. A container isolates the change and is cheap to destroy and rebuild. Check availability first: `docker info --format '{{.SecurityOptions}}'` lists `name=rootless` when rootless mode is active. If rootless Docker is unavailable, do not run the step on the host and do not use rootful Docker, because it needs sudo and a password prompt the agent cannot answer; state what you would run and why, then wait.
 
 # 11. Debugging
 
@@ -183,7 +194,7 @@ Current code/config and observed test results establish actual behavior. Current
 # 15. Triggered workflows
 
 Read only when triggered; resolve paths relative to this AGENTS.md:
-- `subrules/memory.md`: resuming work, handoffs, and end-of-Q&A recording. At the end of every Q&A turn, record the normalized user request and concise agent response/outcome per memory.md §8; also preserve findings that prevent expensive rediscovery or repeated mistakes. Prefer persistent files for information future tasks need instead of relying on conversation context. No user request is needed. Defer routine recording until the end of the turn so it does not interrupt task execution.
+- `subrules/memory.md`: resuming work, handoffs, and end-of-Q&A recording. At the end of every Q&A turn, record the normalized user request and concise agent response/outcome per memory.md §8; also preserve findings that prevent expensive rediscovery or repeated mistakes, and web search results that informed an action (memory.md §2). SHOULD use persistent files for information future tasks need instead of relying on conversation context. No user request is needed. Defer routine recording until the end of the turn so it does not interrupt task execution.
 - `subrules/instruction-authoring.md`: editing, evaluating, or restructuring agent instructions.
 
 Do not load these files merely because they exist.
