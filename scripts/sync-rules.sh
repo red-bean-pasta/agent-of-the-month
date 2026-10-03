@@ -20,17 +20,25 @@ declare -a Agent_Rule_Details=()
 
 Dry_Run=false
 List_Only=false
+Auto_Mode=""
+declare -a Explicit_Paths=()
 
 PrintHelp() {
   cat >&2 <<EOF
-Usage: $(basename "$0") [OPTIONS]
+Usage: $(basename "$0") [OPTIONS] [PATH...]
 
-Scan AI agent state directories on Linux and synchronize AGENTS.md and subrules/.
+Scan AI agent state directories on Linux or sync directly to specified paths,
+synchronizing AGENTS.md and subrules/.
+
+Arguments:
+  [PATH...]             Explicit target directories (skips auto-scan, defaults to -a)
 
 Options:
-  -h, --help      Show this help message and exit
-  -n, --dry-run   Show actions without copying any files
-  -l, --list      Scan and print detected agent state directories and exit
+  -h, --help            Show this help message and exit
+  -n, --dry-run         Show actions without copying any files
+  -l, --list            Scan and print detected agent state directories and exit
+  -a, --all             Install to all target directories without prompting
+  -w, --without-rules   Install only to target directories without existing rules without prompting
 EOF
 }
 
@@ -71,6 +79,15 @@ FormatTilde() {
   fi
 }
 
+ExpandTilde() {
+  local p="$1"
+  if [[ "$p" == "~"* ]]; then
+    echo "$HOME${p#\~}"
+  else
+    echo "$p"
+  fi
+}
+
 ParseArgs() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -86,10 +103,30 @@ ParseArgs() {
         List_Only=true
         shift
         ;;
-      *)
+      -a | --all)
+        Auto_Mode="all"
+        shift
+        ;;
+      -w | --without-rules)
+        Auto_Mode="without-rules"
+        shift
+        ;;
+      --)
+        shift
+        while [[ $# -gt 0 ]]; do
+          Explicit_Paths+=("$1")
+          shift
+        done
+        break
+        ;;
+      -*)
         LogError "Unknown option: $1"
         PrintHelp
         exit 1
+        ;;
+      *)
+        Explicit_Paths+=("$1")
+        shift
         ;;
     esac
   done
@@ -255,7 +292,7 @@ PromptTargetSelection() {
   done
 
   Log "  ${C}a${I}. All"
-  Log "  ${C}n${I}. All without rules"
+  Log "  ${C}w${I}. All without rules"
   Log "  ${C}q${I}. Quit without installing"
   Log ""
 
@@ -317,14 +354,14 @@ ExecuteInstall() {
     local i; for (( i=0; i<total; i++ )); do
       targets_to_install+=("$i")
     done
-  elif [[ "$choice" =~ ^(n|N)$ ]]; then
+  elif [[ "$choice" =~ ^(w|W)$ ]]; then
     local i; for (( i=0; i<total; i++ )); do
       if [[ "${Agent_Has_Rules[$i]}" == "false" ]]; then
         targets_to_install+=("$i")
       fi
     done
     if (( ${#targets_to_install[@]} == 0 )); then
-      LogWarning "All discovered agents already have rules. No targets selected."
+      LogWarning "All discovered targets already have rules. No targets selected."
       exit 0
     fi
   elif [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= total )); then
@@ -359,7 +396,31 @@ Main() {
     exit 1
   fi
 
-  ScanStateDirectories
+  if (( ${#Explicit_Paths[@]} > 0 )); then
+    # Path mode: validate that all specified directories exist before any installation
+    local p expanded
+    for p in "${Explicit_Paths[@]}"; do
+      expanded=$(ExpandTilde "$p")
+      if [[ ! -d "$expanded" ]]; then
+        LogError "Target directory does not exist: $p ($expanded)"
+        exit 1
+      fi
+    done
+
+    # Add validated paths as targets
+    for p in "${Explicit_Paths[@]}"; do
+      expanded=$(ExpandTilde "$p")
+      AddAgentCandidate "$p" "$expanded"
+    done
+
+    # Path mode defaults to -a (all) unless another auto-mode was specified
+    if [[ -z "$Auto_Mode" ]]; then
+      Auto_Mode="all"
+    fi
+  else
+    ScanStateDirectories
+  fi
+
   AnalyzeRules
 
   DisplayScanResults
@@ -369,8 +430,15 @@ Main() {
     exit 0
   fi
 
-  local choice
-  choice=$(PromptTargetSelection)
+  local choice=""
+  if [[ "$Auto_Mode" == "all" ]]; then
+    choice="a"
+  elif [[ "$Auto_Mode" == "without-rules" ]]; then
+    choice="w"
+  else
+    choice=$(PromptTargetSelection)
+  fi
+
   ExecuteInstall "$choice"
 }
 
