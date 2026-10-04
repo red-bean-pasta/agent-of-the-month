@@ -167,34 +167,9 @@ ScanStateDirectories() {
     AddAgentCandidate "GitHub Copilot" "$HOME/.copilot"
   fi
 
-  # Google Antigravity Desktop
-  if [[ -d "$HOME/.gemini/antigravity" ]]; then
-    AddAgentCandidate "Antigravity Desktop" "$HOME/.gemini/antigravity"
-  fi
-
-  # Google Antigravity IDE
-  if [[ -d "$HOME/.gemini/antigravity-ide" ]]; then
-    AddAgentCandidate "Antigravity IDE" "$HOME/.gemini/antigravity-ide"
-  fi
-
-  # Google Antigravity CLI
-  if [[ -d "$HOME/.gemini/antigravity-cli" ]]; then
-    AddAgentCandidate "Antigravity CLI" "$HOME/.gemini/antigravity-cli"
-  fi
-
-  # Google Antigravity ACP
-  if [[ -d "$HOME/.gemini/antigravity-acp" ]]; then
-    AddAgentCandidate "Antigravity ACP" "$HOME/.gemini/antigravity-acp"
-  fi
-
-  # Google Antigravity Global Config
-  if [[ -d "$HOME/.gemini/config" ]]; then
-    AddAgentCandidate "Antigravity Global Config" "$HOME/.gemini/config"
-  fi
-
-  # Legacy Gemini CLI (if separate directory exists)
-  if [[ -d "$HOME/.gemini/gemini" ]]; then
-    AddAgentCandidate "Gemini CLI" "$HOME/.gemini/gemini"
+  # Google Antigravity
+  if [[ -d "$HOME/.gemini/config" ]] || [[ -d "$HOME/.gemini" ]]; then
+    AddAgentCandidate "Antigravity" "$HOME/.gemini/config"
   fi
 }
 
