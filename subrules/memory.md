@@ -1,80 +1,90 @@
 # Persistent Agent Knowledge
 
-Use AGENTS.md's definitions and rule strengths. Load triggers are in AGENTS.md §15.
+It's highly encouraged to record contexts and findings in files. Such practice prevents wasteful rediscovery and helps source tracing. DO NOT hold important informations in conversation context or hidden reasoning.
 
-Memory records decisions, context, and findings to prevent expensive rediscovery. Write findings to files at the end of each turn instead of holding them in context or hidden reasoning.
+This is considered the local "notebook" or "memory" system. 
+
+Writing to files SHOULD happen at the end of each Q&A turn to avoid mid-task interrruptions. 
+
+# Definitions:
+
+- **encouraged:** Encouraged entry SHOULD be evaluated for **every** turn. The evaluation standard should be deliberately forgiving.
+- **forgiving:** Forgiving evluation SHOULD be qualitative even "impulsive"; It makes no distinction based on degree; If the evaluated quality applies to a target, the target should be included. 
 
 # 1. Layout and retrieval
 
-Use this knowledge layout under `.aiassistant/`:
+Use this layout under `.aiassistant/`:
 
 ```text
 .aiassistant/
     README.md
-    notebooks/<topic>.md
-    intent/<action>.md
-    intent/handoff_<action>.md
+    notebook/<topic>.md
+    historybook/<action>.md
+    historybook/handoff_<action>.md
     tmp/
 ```
 
-- Topic filenames in `notebooks/` MUST use lowercase kebab-case (e.g. `docker-rootless.md`, `sync-rules.md`).
-- Intent filenames MUST use verb-based action names (e.g. `create_readme.md`, `refactor_sync_rules.md`) to represent the active task or goal.
-- `README.md` SHOULD explain folder purposes and list active topic files. It SHOULD NOT duplicate file contents or AGENTS.md rules.
-- When resuming or looking up context, query by topic or action filename (e.g. `ls .aiassistant/notebooks/`). Read only files directly relevant to the current task. Do not eagerly load all files.
+- Notebook filenames MUST use lowercase kebab-case (e.g. `memory-rules.md`).
+- Historybook filenames MUST use verb-based action names (e.g. `create_readme.md`) to represent the active task or goal.
+- `README.md` SHOULD explain notebook or historybook file purposes with short yet descriptive explanation. It SHOULD NOT duplicate rules or file contents. It SHOULD skip adding entries when the filename is already descriptive enough.
+- For resuming or querying, search by filenames (e.g. `ls .aiassistant/notebook/`). Read only files directly relevant to the current task. DO NOT paranoid load all files.
 
-# 2. Technical notebooks
+# 2. Notebooks
 
-Use `notebooks/<topic>.md` to store technical findings, architecture details, conventions, debugging discoveries, and external tool quirks.
+Use `notebook/<topic>.md` to store technical findings, architecture details, debugging discoveries, and external tool quirks. They will be referred as "findings" or "technical findings" in the rest of the document. 
 
-Dumping conceptual technical knowledge into files is encouraged. Do not filter findings by evaluating whether they are "broadly reusable", "expensive to reproduce", or "of uncertain future utility." If a finding required investigation, non-obvious tracing, or an external lookup, dump it into a notebook file.
+It's highly encouraged to dump any technical knowledge into files. Knowledge evaluation, summarization and writing to files SHOULD happen at the end of each turn. Evaluation SHOULD be forgiving: Do not try to objectify if a finding is broadly usable or enoughly expensive. Dump any finding that required investigation, web searching, non-obvious tracing, or an external lookup.
 
-Record web search findings that informed an action: include the finding in your own words, the source URL, the access date, and the decision it informed.
+Record meaningful web searches in your own words, with the source URL, the access date, and the decision it informed.
 
-# 3. Notebook sizing and file creation
+## Notebook sizing and file creation
 
-A file's topic name is its primary retrieval key. Creating new topic files is ordinary development and is not discouraged.
+A file's topic name is its primary retrieval key. 
 
-When recording a technical finding:
-1. **Create a new file** `notebooks/<new-topic>.md` when any of the following hold:
+Create a new file when any of the following is true:
    - The finding shares no subject matter with any existing topic file.
    - The finding exceeds HEURISTIC: 150 lines.
    - Appending to the nearest existing topic file would cause that file to exceed HEURISTIC: 300 lines.
-2. **Append to an existing file** `notebooks/<topic>.md` when the finding directly relates to that topic and the file remains within HEURISTIC: 300 lines.
 
-When an existing notebook grows beyond HEURISTIC: 300 lines, split it into smaller, focused topic files (e.g. `notebooks/docker-rootless.md` and `notebooks/docker-networking.md`).
+Append to an existing file when the finding directly relates to that topic and the file remains within HEURISTIC: 300 lines.
 
-# 4. Intent and task history
+Creating new files is not discouraged and often helps with modular recording and fast querying.
 
-Use `intent/<action>.md` to log user-agent interactions, decisions, and outcomes. Both intent logs and handoffs MUST use descriptive, verb-based action names (e.g. `intent/create_readme.md`, `intent/refactor_sync_rules.md`) representing the primary action or goal, rather than bare nouns (e.g. `intent/readme.md`) or dates. Verbs clarify the active goal and task boundary at the file level; dates and bare nouns prevent filename-level querying, cluster unrelated tasks together, and obscure task boundaries.
+# 3. Intent and task history
+
+Use `historybook/(handoff_)<action>.md` to log user-agent interactions, intents, decisions, and outcomes. Filenames MUST be descriptive and verb-action-based representing the primary action or goal, rather than bare nouns or dates. Such practice makes filename-level querying possible, and avoids clustering or obscuring task boundaries.
 
 ## Turn entries
-At the end of every Q&A turn, append a dated entry to `intent/<action>.md`:
+At the end of every Q&A turn, append a dated entry to `historybook/<action>.md`:
 
-```markdown
+```
 ## <Specific Subtask or Question> [YYYY-MM-DD]
-
 - **User:** Normalized request, corrections, and constraints.
 - **Agent:** Concise outcome, implementation/verification state, decisions made, and reasons.
 ```
 
-Start a new `intent/<new-action>.md` when the primary issue or task behind the request is distinct from the active file's action and involves nontrivial work. When uncertain whether the action has shifted, start a new action file: creating new files is not discouraged.
+Start a new file when the primary task behind the request involves nontrivial and is distinct from the active file's action. When uncertain whether the action has shifted, start a new action file: It's not discouraged to create new files.
+
+Disambiguation: It's a easy slip to record technical findings in the Agent section. All findings SHOULD be put under `notebook/`. Historybook files SHOULD reference to notebook files. Therefore, notebook evaluation and bookkeeping happens first then historybook for each turn.
 
 ## Handoffs
-When work remains unfinished across sessions, write an unnormalized task handoff to `intent/handoff_<action>.md`. A handoff supplements, rather than replaces, the turn's entry in `intent/<action>.md`.
+When user instruct to record or handoff unfinished works, write an unnormalized task handoff to `historybook/handoff_<action>.md`. A handoff supplements, rather than replaces, the turn's entry in `historybook/<action>.md`.
 
 A handoff file MUST contain:
 - Current task objective and constraints.
 - Exact progress state, completed edits, and remaining work.
 - Unresolved obstacles, caveats, and next concrete actions.
 
-Delete `intent/handoff_<action>.md` once the handed-off task is resumed and completed.
+No after-work cleanup is required upon work completion. 
 
-# 5. Temporary scratch
+# 4. Temporary scratch
 
-Use `tmp/` for disposable intermediate files, raw command dumps, or scratch formatting. Scratch is disposable; ignore or delete it when done.
+Use `tmp/` for disposable intermediate files, raw command dumps, or scratch formatting. No after-work cleanup is required. It's encouraged to make dumps under `tmp/`. 
 
-# 6. Maintenance and batching
+Disambiguation: `tmp/` is used to dump long outputs and survive context compaction. It's not intended for cross-section bookkeeping like `historybook/` or `notebook/`.
 
-Record notebook entries and intent entries at the end of the Q&A turn per AGENTS.md §15 and principles.md §7. Do not perform mid-task bookkeeping that interrupts execution.
+# 5. Maintenance and batching
+
+Record notebook entries and historybook entries at the end of the Q&A turn. Do not perform mid-task bookkeeping that interrupts execution.
 
 Update existing notebook files only when current edits invalidate previous facts or when architecture changes.

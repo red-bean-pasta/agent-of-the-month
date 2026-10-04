@@ -1,2 +1,7 @@
-1. invesigtigate `subrules/instruction-authoring.md`; handle the overlap between it and `principles.md`.
-2. manually and thoroughly review rules.
+- migrate to skill based instructions because `subrules/` cannot be reliably loaded.
+- invesigtigate `subrules/instruction-authoring.md`; handle the overlap between it and `principles.md`.
+- manually and thoroughly review rules.
+    - principles.md
+    - AGENTS.md
+    - ~~memory.md~~
+    - instruction-authoring.md
