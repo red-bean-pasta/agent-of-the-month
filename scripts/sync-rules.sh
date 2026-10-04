@@ -171,6 +171,10 @@ ScanStateDirectories() {
   if [[ -d "$HOME/.gemini/config" ]] || [[ -d "$HOME/.gemini" ]]; then
     AddAgentCandidate "Antigravity" "$HOME/.gemini/config"
   fi
+
+  if [[ -d "$HOME/.gemini/antigravity-acp" ]]; then
+    LogWarning "Antigravity ACP cannot be synced globally; rules must be project-level: sync-rules.sh <project-repo>"
+  fi
 }
 
 InspectDirectoryRules() {
