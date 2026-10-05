@@ -1,15 +1,15 @@
 # Persistent Agent Knowledge
 
-It's highly encouraged to record contexts and findings in files. Such practice prevents wasteful rediscovery and helps source tracing. DO NOT hold important informations in conversation context or hidden reasoning.
+It's highly encouraged to record contexts and findings in files. Such practice prevents wasteful rediscovery and helps source tracing. DO NOT hold important information in conversation context or hidden reasoning.
 
 This is considered the local "notebook" or "memory" system. 
 
-Writing to files SHOULD happen at the end of each Q&A turn to avoid mid-task interrruptions. 
+Writing to files SHOULD happen at the end of each Q&A turn to avoid mid-task interruptions. 
 
 # Definitions:
 
 - **encouraged:** Encouraged entry SHOULD be evaluated for **every** turn. The evaluation standard should be deliberately forgiving.
-- **forgiving:** Forgiving evluation SHOULD be qualitative even "impulsive"; It makes no distinction based on degree; If the evaluated quality applies to a target, the target should be included. 
+- **forgiving:** Forgiving evaluation SHOULD be qualitative even "impulsive"; It makes no distinction based on degree; If the evaluated quality applies to a target, the target should be included. 
 
 # 1. Layout and retrieval
 
@@ -31,9 +31,9 @@ Use this layout under `.aiassistant/`:
 
 # 2. Notebooks
 
-Use `notebook/<topic>.md` to store technical findings, architecture details, debugging discoveries, and external tool quirks. They will be referred as "findings" or "technical findings" in the rest of the document. 
+Use `notebook/<topic>.md` to store technical findings, architecture details, debugging discoveries, and external tool quirks. They will be referred to as "findings" or "technical findings" in the rest of the document. 
 
-It's highly encouraged to dump any technical knowledge into files. Knowledge evaluation, summarization and writing to files SHOULD happen at the end of each turn. Evaluation SHOULD be forgiving: Do not try to objectify if a finding is broadly usable or enoughly expensive. Dump any finding that required investigation, web searching, non-obvious tracing, or an external lookup.
+It's highly encouraged to dump any technical knowledge into files. Knowledge evaluation, summarization and writing to files SHOULD happen at the end of each turn. Evaluation SHOULD be forgiving: Do not try to objectify if a finding is broadly usable or expensive enough. Dump any finding that required investigation, web searching, non-obvious tracing, or an external lookup.
 
 Record meaningful web searches in your own words, with the source URL, the access date, and the decision it informed.
 
@@ -63,12 +63,12 @@ At the end of every Q&A turn, append a dated entry to `historybook/<action>.md`:
 - **Agent:** Concise outcome, implementation/verification state, decisions made, and reasons.
 ```
 
-Start a new file when the primary task behind the request involves nontrivial and is distinct from the active file's action. When uncertain whether the action has shifted, start a new action file: It's not discouraged to create new files.
+Start a new file when the primary task behind the request involves nontrivial work and is distinct from the active file's action. When uncertain whether the action has shifted, start a new action file: It's not discouraged to create new files.
 
-Disambiguation: It's a easy slip to record technical findings in the Agent section. All findings SHOULD be put under `notebook/`. Historybook files SHOULD reference to notebook files. Therefore, notebook evaluation and bookkeeping happens first then historybook for each turn.
+Disambiguation: It's an easy slip to record technical findings in the Agent section. All findings SHOULD be put under `notebook/`. Historybook files SHOULD reference to notebook files. Therefore, notebook evaluation and bookkeeping happens first then historybook for each turn.
 
 ## Handoffs
-When user instruct to record or handoff unfinished works, write an unnormalized task handoff to `historybook/handoff_<action>.md`. A handoff supplements, rather than replaces, the turn's entry in `historybook/<action>.md`.
+When instructed by the user to record or hand off unfinished work, write an unnormalized task handoff to `historybook/handoff_<action>.md`. A handoff supplements, rather than replaces, the turn's entry in `historybook/<action>.md`.
 
 A handoff file MUST contain:
 - Current task objective and constraints.
@@ -81,7 +81,7 @@ No after-work cleanup is required upon work completion.
 
 Use `tmp/` for disposable intermediate files, raw command dumps, or scratch formatting. No after-work cleanup is required. It's encouraged to make dumps under `tmp/`. 
 
-Disambiguation: `tmp/` is used to dump long outputs and survive context compaction. It's not intended for cross-section bookkeeping like `historybook/` or `notebook/`.
+Disambiguation: `tmp/` is used to dump long outputs and survive context compaction. It's not intended for cross-session bookkeeping like `historybook/` or `notebook/`.
 
 # 5. Maintenance and batching
 
