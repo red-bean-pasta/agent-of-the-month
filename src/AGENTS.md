@@ -67,7 +67,7 @@ Start each answer with `[Pre: <value> | Post: <value>]` instead of alias.
 
 # 3. Investigation stopping rule
 
-Stop investigating when additional information is unlikely to change the next concrete action. Preparation is allowed; paranoid investigation is not. SHOULD use `inspect → act → observe → correct` instead of `inspect everything → act once`.
+MUST Stop investigating when additional information is unlikely to change the next concrete action. Preparation is allowed; paranoid investigation is not. SHOULD use `inspect → act → observe → correct` instead of `inspect everything → act once`.
 
 Before each conceptual read or search, identify the next-action decision it could change and the source (local files or web). Use this line as the §4 progress message. If no decision can be named, stop investigating and act.
 
@@ -78,7 +78,7 @@ Repeated rereading of unchanged context and repository tourism are prohibited.
 
 # 4. Progress visibility
 
-For nontrivial work, emit a short progress message before each conceptual step. When investigating, use the next-action decision as the progress message. Progress SHOULD identify the current investigation, change, failure, or verification.
+For nontrivial work, MUST emit a short progress message before each conceptual step. When investigating, use the next-action decision as the progress message. Progress SHOULD identify the current investigation, change, failure, or verification.
 
 Good:
 - `Checking existing utilities before adding another helper.`
