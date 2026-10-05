@@ -4,6 +4,7 @@ set -eu -o pipefail
 
 Script_Dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 Repo_Root="$(cd "$Script_Dir/.." && pwd)"
+Src_Root="$Repo_Root/src"
 
 # ANSI color codes
 R=$'\e[0;31m'
@@ -322,17 +323,16 @@ DetermineSkillsDir() {
 CopyRulesToTarget() {
   local target_name="$1"
   local target_path="$2"
-  local skills_dir
-  skills_dir="$(DetermineSkillsDir "$target_path")"
+  local skills_dir; skills_dir="$(DetermineSkillsDir "$target_path")"
 
   LogInfo "Installing to ${target_name} -> $(FormatTilde "$target_path")"
 
   if [[ "$Dry_Run" == true ]]; then
     Log "  [dry-run] mkdir -p \"$target_path\""
-    Log "  [dry-run] cp \"$Repo_Root/AGENTS.md\" \"$target_path/AGENTS.md\""
-    if [[ -d "$Repo_Root/skills" ]]; then
+    Log "  [dry-run] cp \"$Src_Root/AGENTS.md\" \"$target_path/AGENTS.md\""
+    if [[ -d "$Src_Root/skills" ]]; then
       local skill_path
-      for skill_path in "$Repo_Root/skills"/*; do
+      for skill_path in "$Src_Root/skills"/*; do
         if [[ -d "$skill_path" ]]; then
           local skill_name
           skill_name="$(basename "$skill_path")"
@@ -345,11 +345,11 @@ CopyRulesToTarget() {
   fi
 
   mkdir -p "$target_path"
-  cp "$Repo_Root/AGENTS.md" "$target_path/AGENTS.md"
+  cp "$Src_Root/AGENTS.md" "$target_path/AGENTS.md"
 
-  if [[ -d "$Repo_Root/skills" ]]; then
+  if [[ -d "$Src_Root/skills" ]]; then
     local skill_path
-    for skill_path in "$Repo_Root/skills"/*; do
+    for skill_path in "$Src_Root/skills"/*; do
       if [[ -d "$skill_path" ]]; then
         local skill_name
         skill_name="$(basename "$skill_path")"
@@ -414,13 +414,13 @@ Main() {
   ParseArgs "$@"
 
   # Validate source files exist
-  if [[ ! -f "$Repo_Root/AGENTS.md" ]]; then
-    LogError "AGENTS.md not found at $Repo_Root/AGENTS.md"
+  if [[ ! -f "$Src_Root/AGENTS.md" ]]; then
+    LogError "AGENTS.md not found at $Src_Root/AGENTS.md"
     exit 1
   fi
 
-  if [[ ! -d "$Repo_Root/skills" ]]; then
-    LogError "skills/ directory not found at $Repo_Root/skills"
+  if [[ ! -d "$Src_Root/skills" ]]; then
+    LogError "skills/ directory not found at $Src_Root/skills"
     exit 1
   fi
 
