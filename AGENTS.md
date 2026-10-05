@@ -193,8 +193,8 @@ Current code/config and observed test results establish actual behavior. Current
 
 # 15. Triggered workflows
 
-Read only when triggered; resolve paths relative to this AGENTS.md:
-- `subrules/memory.md`: resuming work, handoffs, and end-of-Q&A recording. At the end of every Q&A turn, record the normalized user request and concise agent response/outcome per memory.md §4; also preserve technical findings and web search results that informed an action per memory.md §2. SHOULD use persistent files for information future tasks need instead of relying on conversation context. No user request is needed. Defer routine recording until the end of the turn so it does not interrupt task execution.
-- `subrules/instruction-authoring.md`: editing, evaluating, or restructuring agent instructions.
+Activate or read only when triggered:
+- `agent-memory` skill: resuming work, handoffs, and end-of-Q&A recording. At the end of every Q&A turn, execute the turn-end protocol per the `agent-memory` skill; preserve technical findings, web search results, and interaction outcomes. SHOULD use persistent files for information future tasks need instead of relying on conversation context. No user request is needed. Defer routine recording until the end of the turn so it does not interrupt task execution.
+- `subrules/instruction-authoring.md` (resolve relative to this AGENTS.md): editing, evaluating, or restructuring agent instructions.
 
-Do not load these files merely because they exist.
+Do not load these workflows merely because they exist.
