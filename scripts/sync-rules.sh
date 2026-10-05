@@ -310,7 +310,9 @@ PromptTargetSelection() {
 
 DetermineSkillsDir() {
   local target_path="$1"
-  if [[ -d "$target_path/.agents" ]] || [[ -d "$target_path/.git" ]]; then
+  if [[ "$(basename "$target_path")" == ".agents" ]]; then
+    echo "$target_path/skills"
+  elif [[ -d "$target_path/.agents" ]] || [[ -e "$target_path/.git" ]]; then
     echo "$target_path/.agents/skills"
   else
     echo "$target_path/skills"
@@ -355,7 +357,7 @@ CopyRulesToTarget() {
         if command -v rsync >/dev/null 2>&1; then
           rsync -ac --delete "$skill_path/" "$skills_dir/$skill_name/"
         else
-          rm -rf "$skills_dir/$skill_name"
+          rm -rf "${skills_dir:?}/${skill_name:?}"
           cp -r "$skill_path" "$skills_dir/$skill_name"
         fi
       fi
