@@ -28,7 +28,7 @@ PrintHelp() {
 Usage: $(basename "$0") [OPTIONS] [PATH...]
 
 Scan AI agent state directories on Linux or sync directly to specified paths,
-synchronizing AGENTS.md and subrules/.
+synchronizing AGENTS.md and skills/.
 
 Arguments:
   [PATH...]             Explicit target directories (skips auto-scan, defaults to -a)
@@ -196,11 +196,18 @@ InspectDirectoryRules() {
 
   # Check for rule directories
   local rule_dir
-  for rule_dir in "subrules" "rules" "instructions"; do
+  for rule_dir in "rules" "instructions"; do
     if [[ -d "$dir/$rule_dir" ]] && [[ -n "$(ls -A "$dir/$rule_dir" 2>/dev/null)" ]]; then
       found+=("$rule_dir/")
     fi
   done
+
+  # Check for skill directories
+  if [[ -d "$dir/skills" ]] && [[ -n "$(ls -A "$dir/skills" 2>/dev/null)" ]]; then
+    found+=("skills/")
+  elif [[ -d "$dir/.agents/skills" ]] && [[ -n "$(ls -A "$dir/.agents/skills" 2>/dev/null)" ]]; then
+    found+=(".agents/skills/")
+  fi
 
   # Check for any .mdc files
   if compgen -G "$dir/*.mdc" >/dev/null 2>&1; then
@@ -301,31 +308,61 @@ PromptTargetSelection() {
   echo "$choice"
 }
 
+DetermineSkillsDir() {
+  local target_path="$1"
+  if [[ -d "$target_path/.agents" ]] || [[ -d "$target_path/.git" ]]; then
+    echo "$target_path/.agents/skills"
+  else
+    echo "$target_path/skills"
+  fi
+}
+
 CopyRulesToTarget() {
   local target_name="$1"
   local target_path="$2"
+  local skills_dir
+  skills_dir="$(DetermineSkillsDir "$target_path")"
 
   LogInfo "Installing to ${target_name} -> $(FormatTilde "$target_path")"
 
   if [[ "$Dry_Run" == true ]]; then
     Log "  [dry-run] mkdir -p \"$target_path\""
     Log "  [dry-run] cp \"$Repo_Root/AGENTS.md\" \"$target_path/AGENTS.md\""
-    Log "  [dry-run] rsync -ac --delete \"$Repo_Root/subrules/\" \"$target_path/subrules/\""
+    if [[ -d "$Repo_Root/skills" ]]; then
+      local skill_path
+      for skill_path in "$Repo_Root/skills"/*; do
+        if [[ -d "$skill_path" ]]; then
+          local skill_name
+          skill_name="$(basename "$skill_path")"
+          Log "  [dry-run] mkdir -p \"$skills_dir/$skill_name\""
+          Log "  [dry-run] rsync -ac --delete \"$skill_path/\" \"$skills_dir/$skill_name/\""
+        fi
+      done
+    fi
     return 0
   fi
 
   mkdir -p "$target_path"
   cp "$Repo_Root/AGENTS.md" "$target_path/AGENTS.md"
 
-  if command -v rsync >/dev/null 2>&1; then
-    mkdir -p "$target_path/subrules"
-    rsync -ac --delete "$Repo_Root/subrules/" "$target_path/subrules/"
-  else
-    rm -rf "$target_path/subrules"
-    cp -r "$Repo_Root/subrules" "$target_path/subrules"
+  if [[ -d "$Repo_Root/skills" ]]; then
+    local skill_path
+    for skill_path in "$Repo_Root/skills"/*; do
+      if [[ -d "$skill_path" ]]; then
+        local skill_name
+        skill_name="$(basename "$skill_path")"
+        mkdir -p "$skills_dir/$skill_name"
+        if command -v rsync >/dev/null 2>&1; then
+          rsync -ac --delete "$skill_path/" "$skills_dir/$skill_name/"
+        else
+          rm -rf "$skills_dir/$skill_name"
+          cp -r "$skill_path" "$skills_dir/$skill_name"
+        fi
+      fi
+    done
   fi
 
-  LogSuccess "Successfully installed rules to ${target_name} ($(FormatTilde "$target_path"))"
+  LogSuccess "Successfully installed rules and skills to ${target_name} ($(FormatTilde "$target_path"))"
 }
 
 ExecuteInstall() {
@@ -380,8 +417,8 @@ Main() {
     exit 1
   fi
 
-  if [[ ! -d "$Repo_Root/subrules" ]]; then
-    LogError "subrules/ directory not found at $Repo_Root/subrules"
+  if [[ ! -d "$Repo_Root/skills" ]]; then
+    LogError "skills/ directory not found at $Repo_Root/skills"
     exit 1
   fi
 
