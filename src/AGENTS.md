@@ -183,6 +183,13 @@ A clean git worktree makes tracked-file edits easy to undo. In an unclean worktr
 - **Mid-task checkpoints:** Do NOT create autonomous git commits mid-task. Work in clean conceptual slices. If a checkpoint commit materially improves safety, ask the user: *"Slice completed and verified; should I commit this checkpoint before proceeding?"*
 - **Non-tracked state:** Git does not track ignored files or external state. Create `.bak` files or record current state before modifying them.
 
+## Temporary and scratch files (`.aiassistant/tmp/`)
+
+Use `.aiassistant/tmp/` for task- or turn-specific scratch space. Files in `tmp/` are ephemeral runtime scratch; no after-work cleanup is required.
+
+- **Temporary scripts:** Prefer writing temporary debug, reproduction, or probe scripts into `tmp/` instead of executing complex inline commands or cluttering tracked project files. This allows rapid iteration and repeated reruns without polluting git status.
+- **Raw dumps & decoupled timing:** Dump verbose command outputs, intermediate data, or raw research dumps into `tmp/` during active execution to survive context compaction. Distilling or copying durable insights happens separately at turn conclusion according to the `agent-memory` skill, decoupling mid-task scratch speed from end-of-turn knowledge organization. Do not rely on `tmp/` for durable cross-session bookkeeping.
+
 ## Rootless docker
 
 Run a step in rootless Docker instead of on the host when:

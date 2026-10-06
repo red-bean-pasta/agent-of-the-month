@@ -14,3 +14,9 @@
 
 ## 4. Bounded Investigation and Question Asking
 - Clarification questions must follow a stopping rule: only ask when material uncertainty cannot be inferred with $\ge 75\%$ confidence. Asking questions on routine implementation decisions leads to user fatigue.
+
+## 5. Scratch Space (`tmp/`) vs. Persistent Memory Lifecycle
+- **Timing & Scope Decoupling:** In-conversation scratch resources (debug scripts, reproduction probes, verbose command dumps) belong to runtime execution and must not depend on end-of-turn persistent memory skills.
+- **Temporary Scripts:** Providing a designated, git-ignored scratch directory (`.aiassistant/tmp/`) prevents agents from performing awkward inline command gymnastics during iterative, command-heavy debugging loops.
+- **Context Compaction as Driver:** Agents naturally skip dumping raw output because they already read it in-stream; the compelling rationale to dump into `tmp/` is surviving context compaction during long tasks.
+- **Turn-End Distillation:** Separating ephemeral execution scratch from durable memory allows agents to dump raw data freely during the task without fear of polluting durable records, then distill or copy findings at turn conclusion. Do not frame scratch lifetime as a prohibition ("do not use") which scares agents away from dumping reusable data; frame it as a durability caveat ("do not rely on for cross-session storage").

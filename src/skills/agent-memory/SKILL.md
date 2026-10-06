@@ -33,7 +33,7 @@ The memory system resides under `.aiassistant/` in the workspace root:
 
 - **`notebook/`**: Durable technical findings, architectural decisions, and tool quirks.
 - **`historybook/`**: Interaction history, task decisions, and session handoffs.
-- **`tmp/`**: Disposable intermediate files and command dumps.
+- **`tmp/`**: Ephemeral in-conversation scratch space (debug scripts, dumps), not governed by this skill.
 - **`README.md`**: Explains notebook and historybook purposes with concise descriptions. It SHOULD NOT duplicate file contents. It SHOULD skip adding entries when the filename is already descriptive enough. See [readme.md template](./resources/templates/readme.md).
 
 > [!TIP]
@@ -46,7 +46,7 @@ The memory system resides under `.aiassistant/` in the workspace root:
 At the conclusion of every Q&A turn, execute this two-stage sequence:
 
 ### Stage 1: Technical Findings (`notebook/<topic>.md`) First
-1. **Evaluate Findings:** Evaluate whether any technical knowledge was uncovered this turn. Apply the forgiving rule: do not debate whether a finding is broadly reusable or expensive enough. Dump any finding that required investigation, web searching, non-obvious tracing, or an external lookup.
+1. **Evaluate Findings & Distill Scratch:** Evaluate whether any technical knowledge was uncovered this turn. Apply the forgiving rule: do not debate whether a finding is broadly reusable or expensive enough. Review any raw dumps or intermediate scripts placed in `tmp/` during the turn; summarize and copy durable insights into `notebook/`. Dump any finding that required investigation, web searching, non-obvious tracing, or an external lookup.
 2. **File Sizing & Creation:**
    - Topic filenames MUST use lowercase kebab-case (e.g. `memory-rules.md`, `docker-rootless.md`).
    - Create a new file `notebook/<new-topic>.md` when the finding shares no subject matter with existing topics, exceeds 150 lines (heuristic), or appending would push the file past 300 lines (heuristic).
@@ -77,12 +77,3 @@ When instructed by the user to record or hand off unfinished work across session
 When resuming an interrupted session or looking up existing context:
 1. **Query Filenames First:** Search by filename (e.g. `ls .aiassistant/notebook/` or `ls .aiassistant/historybook/`).
 2. **Bounded Reading:** Read only the specific files directly relevant to the current task. Do NOT paranoid-load all files into context.
-
---------------------------------------------------------------------------------
-
-## 4. Temporary Scratch (`tmp/`)
-
-Use `tmp/` for disposable intermediate files, raw command dumps, or scratch formatting.
-- **Purpose:** `tmp/` is used to dump large tool outputs and survive context compaction.
-- It is not intended for durable cross-session bookkeeping like `historybook/` or `notebook/`.
-- Scratch files are disposable; no after-work cleanup is required.
