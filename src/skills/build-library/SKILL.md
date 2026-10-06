@@ -1,10 +1,10 @@
 ---
-name: agent-memory
+name: build-library
 description: >-
-  Manage persistent knowledge, technical findings, interaction history, and cross-session handoffs under .aiassistant/. Activate at the end of every Q&A turn to record findings and outcomes, or when resuming context and handling task handoffs.
+  Build and maintain a durable library of findings, decisions, and task history under .aiassistant/ when recording work or preparing and resuming a handoff.
 ---
 
-# Agent Memory System
+# Build library
 
 The memory system prevents wasteful rediscovery by recording durable knowledge into files rather than holding it in conversation context or hidden reasoning.
 
@@ -38,6 +38,12 @@ The memory system resides under `.aiassistant/` in the workspace root:
 
 > [!TIP]
 > You can initialize this directory layout automatically in any workspace by executing [init-memory.sh](./scripts/init-memory.sh).
+
+## Scratch during work
+
+Use `.aiassistant/tmp/` for task- or turn-specific scratch. Prefer temporary scripts there over complex inline commands or tracked project files. Dump verbose command outputs, intermediate data, and raw research during active work so they survive compaction.
+
+Scratch is ephemeral and needs no after-work cleanup. Distill durable findings separately when recording the turn; do not rely on `tmp/` for cross-session bookkeeping.
 
 --------------------------------------------------------------------------------
 
