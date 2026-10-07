@@ -23,7 +23,7 @@ Investigation is necessarily linear: each finding determines what is worth learn
 
 A stable plan avoids repeatedly reconstructing the task.
 
-The plan can be recorded in a file under `.aitmp/` so it is easier to modify and the user can trace its source.
+The plan can be recorded in a file under `.agents/tmp/` so it is easier to modify and the user can trace its source.
 
 ## Investigation
 

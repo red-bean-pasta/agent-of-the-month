@@ -5,7 +5,7 @@ description: Use before investigation to supplement in-conversation scratch spac
 
 # Scratch on disk
 
-During a run, use `.aitmp/` as file-based scratch space for:
+During a run, use `.agents/tmp/` as file-based scratch space for:
 
 - raw results
 - long outputs

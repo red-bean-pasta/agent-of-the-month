@@ -12,7 +12,7 @@ A library helps you; contributing to it helps others.
 ## Directory layout
 
 ```text
-.ailibrary/
+.agents/
     notebook/
       <topic>.md
     historybook/
@@ -27,7 +27,7 @@ A library helps you; contributing to it helps others.
 To find relevant records, search filenames first.
 
 ```bash
-rg --files .ailibrary/notebook .ailibrary/historybook | rg 'keyword1|keyword2|...'
+rg --files .agents/notebook .agents/historybook | rg 'keyword1|keyword2|...'
 ```
 
 ## Bookkeeping

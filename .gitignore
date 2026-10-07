@@ -1,7 +1,5 @@
 /.codex/
 /.aws/
-/temp/
-/.aiassistant/tmp/
-/.aiassistant/historybook/
-/.ailibrary/tmp/
-/.ailibrary/historybook/
+/.agents/tmp/
+/.agents/historybook/
+/.agents/historybook/
