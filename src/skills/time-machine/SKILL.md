@@ -1,11 +1,11 @@
 ---
 name: time-machine
-description: Use before applying task edits, ideally at the start of a reply.
+description: Use before changing files, databases, or the system environment.
 ---
 
 # Time machine
 
-Reversibility and verifiability are important to many nontrivial tasks.
+It is better to have reversibility and verifiability ready than to need them when it is already too late.
 
 ## Reversibility
 

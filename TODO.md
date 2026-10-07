@@ -1,11 +1,15 @@
-- migrate to skill based instructions because `subrules/` cannot be reliably loaded.
+- ~~migrate to skill based instructions because `subrules/` cannot be reliably loaded.~~
     - ~~memory.md~~
-    - instruction-authoring.md
+    - ~~instruction-authoring.md~~
 - migrate the whole AGENTS.md to be skills.
-    - figure out how Matt organize instructions.
-- invesigtigate `subrules/instruction-authoring.md`; handle the overlap between it and `principles.md`.
-- manually and thoroughly review rules.
-    - principles.md
+    - ~~figure out how Matt organize instructions.~~
+    - add router wrapping after the skill bodies are settled; defer activation overlap, mode persistence, and selection testing until then.
+    - ~~review wording, context, length, naming, and other minor phrasing issues after the behavioral updates.~~
+    - benchmark confidence recording for decision clarity and task recovery before changing its bookkeeping requirement; user will test, and the requirement stays unchanged until then.
+    - ~~review whether removed Git authorization rules need an explicit replacement in the final instruction package.~~ The permission-before-Git-actions list was deliberately removed and will not be restored.
+- ~~invesigtigate `subrules/instruction-authoring.md`; handle the overlap between it and `principles.md`.~~
+- ~~manually and thoroughly review rules.~~
+    - ~~principles.md~~
     - ~~AGENTS.md~~
     - ~~memory.md~~
-    - instruction-authoring.md
+    - ~~instruction-authoring.md~~

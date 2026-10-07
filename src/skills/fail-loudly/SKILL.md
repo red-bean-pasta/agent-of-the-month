@@ -5,7 +5,7 @@ description: Use before handling edge cases, exceptions, and fallbacks.
 
 # Fail loudly
 
-During development, fail loudly on internal errors:
+Fail loudly on internal errors, during development and in production:
 
 - violated method contracts
 - impossible enum values
@@ -13,9 +13,9 @@ During development, fail loudly on internal errors:
 - mismatched item counts
 - ...
 
-This helps catch bugs early and identify them clearly. Do not add guessed defaults, clamping, fallbacks, or exception swallowing.
+Do not add guessed defaults, clamping, fallbacks, or exception swallowing; they can conceal an internal error and its cause.
 
-For production and external uncertainty, handle failures gracefully:
+For external uncertainty, handle failures gracefully according to the intended project behavior:
 
 - user input
 - network responses
@@ -25,4 +25,6 @@ For production and external uncertainty, handle failures gracefully:
 - project-defined behavior
 - ...
 
-To distinguish internal errors from external uncertainty, ask yourself: “Is this a feature, or nothing meaningful?”
+In production, graceful presentation of an internal error must still preserve the explicit failure and its cause. It must not turn a contract violation into a guessed successful result.
+
+When it is hard to categorize an exception, ask yourself: “Can this be justified as a feature?”

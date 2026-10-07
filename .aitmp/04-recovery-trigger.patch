@@ -1,0 +1,26 @@
+# Illustrative review only; do not apply. Source files remain unchanged.
+# Added # [labels] are review annotations, examples, or optional proposals.
+
+--- a/src/skills/time-machine/SKILL.md
++++ b/src/skills/time-machine/SKILL.md
+@@ -1,6 +1,10 @@
+ ---
+ name: time-machine
+ description: Use before applying task edits, ideally at the start of a reply.
++# [Activation concern; untested] A command can change system packages, service state, or an external database before any repository edit. The body covers these changes, but task edits may be read too narrowly.
++# [Example] Preparation requires a system package installation. Recovery and isolation guidance must be selected before the installer runs.
++# [Proposed direction] Include commands that change existing files, databases, system configuration, services, or packages in the selection cue. Keep the body’s read-only and disposable-file exclusions.
++
+ ---
+ 
+ # Time machine
+@@ -43,6 +47,9 @@
+ For nontrivial tasks, record a baseline of the original behavior and state (e.g., build output or a reusable test script) when it helps assess the current state, discover undisclosed bugs, or provide a benchmark for post-work comparison. A baseline does not require a full suite.
+ 
+ Skip baseline recording for trivial changes or mode restrictions.
++# [Boundary] A baseline helps interpret later results, but does not specify which post-edit check is sufficient. The collection currently supplies less explicit verification procedure than the original.
++# [Suggestion] Keep baseline recording here; separately decide where the desired completion check and stopping condition should live.
++
+ 
+ ### System changes
+ 

@@ -1,0 +1,30 @@
+# Illustrative review only; do not apply. Source files remain unchanged.
+# Added # [labels] are review annotations, examples, or optional proposals.
+
+--- a/src/skills/the-supreme-court/SKILL.md
++++ b/src/skills/the-supreme-court/SKILL.md
+@@ -24,9 +24,17 @@
+ 1. **Don't make the agent decode.** Ambiguous or subjective terms require inference, invite divergent interpretations, and cannot be followed objectively.
+ 2. **Give the reason.** A reason helps agents remember, internalize, and generalize a rule.
+ 3. **Make judgment measurable and decisive.** Judgment requires considerable inference, and an agent's attention is limited. Rules compete with debugging, changing requirements, and accumulated scratch work. Being in context ≠ being attended to ≠ being obeyed.
++# [Rubric distinction] An explicit numeric estimate is not necessarily calibrated or behaviorally useful. Assess whether the criterion produces a useful next action.
++# [Example] A confidence threshold does not itself determine whether uncertainty concerns an inspectable fact or a user-owned preference.
++
+ 4. **Make rules easy to follow.** Concrete steps are easier to follow, but reduce flexibility, especially when unexpected interruptions occur.
+ 5. **Use examples to clarify.** Examples help agents understand and remember abstract terms.
+ 6. **Use concrete lists instead of illustrative lists.** A finite list is easier to follow; an illustrative list requires the agent to interpret a broader category before acting. Do not assume that adding “for example” improves generalization.
++# [Rubric distinction] Lists that define applicability and examples that teach a concept have different functions. The previous item encourages explanatory examples; this item can sound like a blanket prohibition.
++# [Example: applicability] The recovery list declares which existing states require protection.
++# [Example: explanation] A conceptual-operation example in lego helps explain an abstraction boundary without declaring every operation to which the rule applies.
++# [Proposed direction] Preserve concrete applicability lists as declared scope. Allow examples to explain a concept without substituting them for the scope definition.
++
+ 7. **Remove empty talk.** Do not repeat what an agent already knows or follows. Do not add vague instructions such as “write modularly” that give no concrete direction.
+ 8. **Resolve contradictions.** Conflicting rules require considerable inference to reconcile and make both rules harder to interpret.
+ 
+@@ -36,3 +44,6 @@
+ 2. **Use a memorable name or marker word.** It compresses a behavioral pattern into a single recall cue—Matt Pocock's “leading word”.
+ 
+ If multiple skills share the same trigger, a small lifecycle router can help select work skills and reduce independent selection decisions.
++# [Benchmark priority] First establish whether shared triggers actually cause missed or excessive activation. A router has its own selection and maintenance costs.
++# [Comparison] Test selection separately from body compliance: did the needed skill load, and did the subsequent action follow it?
++

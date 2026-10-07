@@ -1,0 +1,36 @@
+# Illustrative assessment only; do not apply. Skill sources are unchanged.
+# Labels distinguish removal candidates, overlap, baseline advice, and useful reasons.
+# Familiarity is not evidence that every agent reliably follows a rule. Router work is deferred.
+
+--- a/src/skills/handoff/SKILL.md
++++ b/src/skills/handoff/SKILL.md
+@@ -6,12 +6,18 @@
+ # Handoff
+ 
+ Handoffs can lose context and continutity. Consider it a state-transfer protocol. Preserve information that would be expensive, risky, or impossible for the next agent to reconstruct. Preserve the reasoning, not just the conclusion.
++# [Remove candidate: technical label] Consider it a state-transfer protocol supplies a metaphor without an additional action or criterion. The preservation instructions explain the job more directly.
++# [Preserve] The opening identifies the failure; the reconstruction criterion and reasoning requirement guide content selection.
++
+ 
+ All handoffs should be at `.aihandoff/<action>.md`. Action-based filenames should describe the task. No cleanup is required.
+ 
+ ## Quick start
+ 
+ A handoff can contain two sections: one for the conversation and one for the task.
++# [Consolidation candidate] The numbered procedure already specifies when to preserve each section. This advance summary may aid orientation but adds no further rule.
++# [Distinction] This is duplication, not empty talk. Assess its reading benefit before removing it.
++
+ 
+ Each section should preserve:
+ 
+@@ -32,5 +38,10 @@
+ Distinguish “observed”, “user-stated”, “decided”, “hypothesized”, and “unresolved” information.
+ 
+ Do not include information that is cheap to rediscover. Do not duplicate source artifacts; reference them instead.
++# [Keep: selection rules] These constrain what to omit and how to avoid large copies. They are more useful than a generic instruction to summarize well.
++
+ 
+ Before finishing, ask yourself: “Could I pick up this handoff with no prior context?”
++# [Optional self-check] This offers a recipient perspective, but cannot demonstrate usability and overlaps the content checklist.
++# [Suggestion] Keep if it catches omissions in practice; otherwise the concrete checklist can carry the requirement. Do not treat a yes answer as verification.
++

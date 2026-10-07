@@ -5,15 +5,13 @@ description: Use before resuming or handing off a task or conversation.
 
 # Handoff
 
-Handoffs can lose context and continutity. Consider it a state-transfer protocol. Preserve information that would be expensive, risky, or impossible for the next agent to reconstruct. Preserve the reasoning, not just the conclusion.
+Handoffs can lose context and continuity. Preserve information that would be expensive, risky, or impossible for the next agent to reconstruct. Preserve the reasoning, not just the conclusion.
 
 All handoffs should be at `.aihandoff/<action>.md`. Action-based filenames should describe the task. No cleanup is required.
 
 ## Quick start
 
-A handoff can contain two sections: one for the conversation and one for the task.
-
-Each section should preserve:
+Each conversation or task section should preserve:
 
 - goal
 - completed phases
@@ -25,7 +23,7 @@ Each section should preserve:
 - active files, skills, and procedures relevant to the next phase
 
 1. Identify the task being handed off.
-2. Identify unfished goals of the conversation.
+2. Identify unfinished goals of the conversation.
 3. If the conversation's goal is broader than or different from the task's goal, preserve a conversation section.
 4. Preserve a task section.
 

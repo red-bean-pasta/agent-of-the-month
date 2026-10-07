@@ -1,0 +1,31 @@
+# Illustrative assessment only; do not apply. Skill sources are unchanged.
+# Labels distinguish removal candidates, overlap, baseline advice, and useful reasons.
+# Familiarity is not evidence that every agent reliably follows a rule. Router work is deferred.
+
+--- a/src/skills/scratch-on-disk/SKILL.md
++++ b/src/skills/scratch-on-disk/SKILL.md
+@@ -6,6 +6,8 @@
+ # Scratch on disk
+ 
+ During a run, use `.aitmp/` as file-based scratch space for:
++# [Keep: local convention] The destination cannot be inferred from generic agent competence. The content list explains what belongs there.
++
+ 
+ - raw results
+ - long outputs
+@@ -15,6 +17,8 @@
+ - ...
+ 
+ This is especially useful for:
++# [Keep: explanatory uses] Scripts, selective output reading, compaction, and illustrative patches explain different benefits and uses. These are not merely a repeated list of desirable outcomes.
++
+ 
+ - Repeatedly adjusting temporary debugging scripts.
+ - Redirecting long outputs to files to reduce clutter in in-conversation scratch space, then inspecting them selectively with `grep`.
+@@ -24,3 +28,6 @@
+ No cleanup is required afterward.
+ 
+ Create `.aitmp/` if it doesn't exist.
++# [Remove candidate: baseline prerequisite] Creating the chosen destination when needed follows directly from writing there. It adds little unless directory-creation failures are observed.
++# [Preserve] No cleanup is required is a local preference, not an equally obvious prerequisite.
++

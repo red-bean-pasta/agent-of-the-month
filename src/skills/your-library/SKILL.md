@@ -7,13 +7,7 @@ description: Consult and build an inclusive library of findings, histories, and 
 
 A library system prevents wasteful rediscovery.
 
-You can use it to:
-
-- search for task context
-- trace project history back to its sources
-- dump findings and raw outputs during a task
-
-The library helps you; contribute to it to help others.
+A library helps you; contributing to it helps others.
 
 ## Directory layout
 
@@ -28,15 +22,12 @@ The library helps you; contribute to it to help others.
 **notebook/**: Durable findings.
 **historybook/**: User-agent interaction history.
 
-> [!TIP]
-> Initialize this layout automatically in any workspace by executing [init-memory.sh](./scripts/init-memory.sh).
-
 ## Querying
 
-To find the task context you need, use filenames as the source of truth.
+To find relevant records, search filenames first.
 
 ```bash
-ls .ailibrary/ | grep -E 'keyword1|keyword2|...'
+rg --files .ailibrary/notebook .ailibrary/historybook | rg 'keyword1|keyword2|...'
 ```
 
 ## Bookkeeping
@@ -53,7 +44,7 @@ At the end of every Q&A turn:
      - would push an existing file beyond 300 lines if appended
    - notebook filenames MUST use lowercase kebab-case (e.g. `sternum-shape.md`)
 3. (Optional) Summarize this Q&A turn in `historybook/` using dated entries:
-   - skip if the turn did not alter project files
+   - skip if the turn neither altered project files nor settled consequential decisions
    - put raw technical findings in notebook files and reference them from history files
    - history filenames MUST be verb-based (e.g. `migrate_data.md`)
 

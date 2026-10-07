@@ -1,0 +1,33 @@
+# Illustrative review only; do not apply. Source files remain unchanged.
+# Added # [labels] are review annotations, examples, or optional proposals.
+
+--- a/src/skills/toolbox-lock/SKILL.md
++++ b/src/skills/toolbox-lock/SKILL.md
+@@ -1,6 +1,9 @@
+ ---
+ name: toolbox-lock
+ description: Use before investigation to apply the user's preparation and verification limits.
++# [Lifecycle concern; untested] The body governs preparation, post-edit checks, persistent mode state, and each answer prefix. One initial selection must support obligations that occur later.
++# [Benchmark] Check first preparation, a later verification step, a new turn, and a mid-task mode change. Observe missed selection or forgotten state before introducing another router.
++
+ ---
+ 
+ # Toolbox lock
+@@ -15,9 +18,17 @@
+ - **Pre: Allowed:** Preparation can include running programs, scripts, tests, or builds.
+ - **Pre: Static:** Only read context and documentation, search files, symbols, references, or the web, and run static commands (e.g., `ls`, `cat`). If execution is necessary, state what you would run and why, and ask for user permission before running it.
+ - **Post: Allowed:** Verify changed behavior proportionately and support completion claims with evidence.
++# [Coverage gap] This states the standard but offers little help choosing sufficient evidence or knowing when to stop checking.
++# [Example] A shared return representation changes. A local check may pass while consumers still rely on the old representation.
++# [Optional procedure] Start with a focused check of the changed behavior; include affected consumers when an interface or representation changes; broaden only when failures or unresolved evidence justify it.
++# [Ownership of this suggestion] Decide whether that procedure belongs here or elsewhere. This annotation is not a request to restore all original verification rules.
++
+ - **Post: None:** Skip post-edit verification. Report the work as implemented with verification skipped; never imply verification occurred.
+ 
+ Modes persist across turns. Initialize each unspecified axis to Allowed; changing one axis leaves the other unchanged.
++# [Behavioral test] Set Pre: Static, continue into another turn, then change only Post. The expected result is that Pre remains Static.
++# [Evidence limit] The persistence rule is clear in the text; reliable selection and retention have not been established by this static review.
++
+ 
+ Handy aliases:
+ 

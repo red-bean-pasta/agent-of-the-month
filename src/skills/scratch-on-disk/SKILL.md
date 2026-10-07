@@ -22,5 +22,3 @@ This is especially useful for:
 - Illustrate plans and changes using temporary `.patch` files.
 
 No cleanup is required afterward.
-
-Create `.aitmp/` if it doesn't exist.

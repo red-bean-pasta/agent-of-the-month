@@ -1,0 +1,42 @@
+# Illustrative assessment only; do not apply. Skill sources are unchanged.
+# Labels distinguish removal candidates, overlap, baseline advice, and useful reasons.
+# Familiarity is not evidence that every agent reliably follows a rule. Router work is deferred.
+
+--- a/src/skills/the-supreme-court/SKILL.md
++++ b/src/skills/the-supreme-court/SKILL.md
+@@ -8,6 +8,8 @@
+ ## Skills vs. AGENTS.md
+ 
+ Rules in `AGENTS.md` can often move into skills with suitable trigger descriptions:
++# [Keep: scope explanation] The following selection-cost comparison establishes why the same rule can behave differently when packaged as a skill.
++
+ 
+ - skills offer better modularity but introduce selection burden: missed activation, excessive activation, and conflicting procedures
+ - `AGENTS.md` is always present but adds clutter to the context
+@@ -18,6 +20,9 @@
+ - skills: procedures that apply to a particular trigger or situation
+ 
+ Frequent use reinforces a skill's vocabulary and procedure, giving it an effect similar to `AGENTS.md`. Even frequently used skills can fade from attention during difficult work.
++# [Weak claim candidate] Reinforcement and equivalence with AGENTS.md are not established by this review. The attention warning repeats the paragraph introducing the rubric.
++# [Suggestion] Remove the speculative reinforcement claim or qualify it if supported by observed usage. Preserve the concrete packaging distinction above.
++
+ 
+ ## Evaluate the rules
+ 
+@@ -27,10 +32,16 @@
+ 2. **Give the reason.** A reason helps agents remember, internalize, and generalize a rule.
+ 3. **Make judgment measurable and decisive.** Judgment requires considerable inference. An explicit number does not establish calibration or usefulness. Assess whether the criterion produces a useful next action.
+ 4. **Make rules easy to follow.** Concrete steps are easier to follow, but reduce flexibility, especially when unexpected interruptions occur.
++# [Remove or sharpen candidate] The instruction names a desirable quality but gives no criterion for choosing concreteness versus flexibility. Other items specify ambiguity, examples, applicability, and contradictions more directly.
++# [Preserve if revised] The tradeoff is meaningful, but it needs to change an authoring decision to earn a separate rule.
++
+ 5. **Use examples to clarify.** Examples help agents understand and remember abstract terms.
+ 6. **Define applicability instead of giving illustrative lists.** A finite list is easier to follow; an illustrative list requires the agent to interpret a broader category before acting. Do not assume that adding “for example” improves generalization. Examples can explain a concept without replacing the list that defines when a rule applies.
+ 7. **Remove empty talk.** Do not repeat what an agent already knows or follows. Do not add vague instructions such as “write modularly” that give no concrete direction.
+ 8. **Resolve contradictions.** Conflicting rules require considerable inference to reconcile and make both rules harder to interpret.
++# [Baseline candidate; not automatically empty] Authors know contradictions are undesirable. Here it is also a concrete review criterion with a causal reason.
++# [Suggestion] Retain in the evaluation checklist unless it duplicates another maintained check. Being familiar does not make a checklist criterion unnecessary.
++
+ 
+ ### Skills
+ 
