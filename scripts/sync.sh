@@ -11,6 +11,7 @@ List_Only=false
 Force=false
 Auto_All=false
 declare -a Selected_Skills=()
+declare -a Excluded_Skills=()
 declare -a Skills_To_Sync=()
 declare -a Target_Names=()
 declare -a Target_Paths=()
@@ -44,6 +45,7 @@ Options:
   -f, --force           Overwrite existing skills in target directories
   -a, --all             Install to all detected agents in auto-scan mode
   -s, --skill [SKILL..] Specific skill(s) to sync (defaults to all under skills/)
+  -e, --exclude [SK..]  Skill(s) to exclude from sync
   -d, --dest  [PATH..]  Explicit target directory/directories (skips auto-scan)
 EOF
 }
@@ -64,13 +66,25 @@ ParseArgs() {
         done
         (( count > 0 )) || Die "Option -s requires at least one skill name."
         ;;
+      -e | --exclude | --ignore)
+        shift
+        local count=0
+        while [[ $# -gt 0 && ! "$1" =~ ^- ]]; do
+          Excluded_Skills+=("$1"); ((count++)) || true; shift
+        done
+        (( count > 0 )) || Die "Option -e requires at least one skill name."
+        ;;
       -d | --dest | --dir | --target)
         shift
         local count=0
         while [[ $# -gt 0 && ! "$1" =~ ^- ]]; do
           local expanded="${1/#\~/"$HOME"}"
+          local clean_path="${expanded%/}"
+          if [[ "$(basename "$clean_path")" != "skills" ]]; then
+            Warn "Target '$(Tilde "$clean_path")' does not end in 'skills/'. Skills will be installed directly into this directory."
+          fi
           Target_Names+=("$1")
-          Target_Paths+=("${expanded%/}")
+          Target_Paths+=("$clean_path")
           ((count++)) || true; shift
         done
         (( count > 0 )) || Die "Option -d requires at least one target directory."
@@ -93,11 +107,11 @@ AddCandidate() {
 }
 
 ScanStateDirectories() {
-  [[ -d "$HOME/.codex" ]] && AddCandidate "Codex" "$HOME/.codex"
-  [[ -d "$HOME/.claude" ]] && AddCandidate "Claude" "$HOME/.claude"
-  [[ -d "$HOME/.copilot" ]] && AddCandidate "GitHub Copilot" "$HOME/.copilot"
+  [[ -d "$HOME/.codex" ]] && AddCandidate "Codex" "$HOME/.codex/skills"
+  [[ -d "$HOME/.claude" ]] && AddCandidate "Claude" "$HOME/.claude/skills"
+  [[ -d "$HOME/.copilot" ]] && AddCandidate "GitHub Copilot" "$HOME/.copilot/skills"
   if [[ -d "$HOME/.gemini/config" || -d "$HOME/.gemini" ]]; then
-    AddCandidate "Antigravity" "$HOME/.gemini/config"
+    AddCandidate "Antigravity" "$HOME/.gemini/config/skills"
   fi
 }
 
@@ -110,29 +124,36 @@ CollectSkillsToSync() {
       [[ -d "$skill_path" ]] && Skills_To_Sync+=("$(basename "$skill_path")")
     done
     (( ${#Skills_To_Sync[@]} > 0 )) || Die "No skills found under $Skills_Root"
-    return 0
+  else
+    local s missing=0
+    for s in "${Selected_Skills[@]}"; do
+      if [[ ! -d "$Skills_Root/$s" ]]; then
+        echo >&2 "${R}ERROR:${I} Skill '$s' not found under $(Tilde "$Skills_Root")"
+        missing=1
+      elif [[ ! " ${Skills_To_Sync[*]:-} " =~ " ${s} " ]]; then
+        Skills_To_Sync+=("$s")
+      fi
+    done
+    (( missing == 0 )) || exit 1
   fi
 
-  local s missing=0
-  for s in "${Selected_Skills[@]}"; do
-    if [[ ! -d "$Skills_Root/$s" ]]; then
-      echo >&2 "${R}ERROR:${I} Skill '$s' not found under $(Tilde "$Skills_Root")"
-      missing=1
-    elif [[ ! " ${Skills_To_Sync[*]:-} " =~ " ${s} " ]]; then
-      Skills_To_Sync+=("$s")
-    fi
-  done
-  (( missing == 0 )) || exit 1
-}
-
-ResolveSkillsDir() {
-  local target="$1"
-  if [[ "$(basename "$target")" == ".agents" ]]; then
-    echo "$target/skills"
-  elif [[ -d "$target/.agents" || -e "$target/.git" ]]; then
-    echo "$target/.agents/skills"
-  else
-    echo "$target/skills"
+  # Apply exclusion (forgiving: unfound excluded skills are ignored)
+  if (( ${#Excluded_Skills[@]} > 0 )); then
+    local -a filtered=()
+    for s in "${Skills_To_Sync[@]}"; do
+      local excluded=false
+      local ex
+      for ex in "${Excluded_Skills[@]}"; do
+        if [[ "$s" == "$ex" ]]; then
+          excluded=true
+          break
+        fi
+      done
+      if [[ "$excluded" == false ]]; then
+        filtered+=("$s")
+      fi
+    done
+    Skills_To_Sync=("${filtered[@]:-}")
   fi
 }
 
@@ -152,8 +173,7 @@ SyncSkillDir() {
 }
 
 CopySkillsToTarget() {
-  local name="$1" path="$2"
-  local dest_skills; dest_skills="$(ResolveSkillsDir "$path")"
+  local name="$1" dest_skills="$2"
 
   Info "Installing skills to ${name} -> $(Tilde "$dest_skills")"
 
