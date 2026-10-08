@@ -1,6 +1,6 @@
 ---
 name: scout-and-build
-description: Use before investigation, planning and editing to work cleanly.
+description: Use before exploring a task and formulating plans to know how to work cleanly.
 ---
 
 # Scout and build

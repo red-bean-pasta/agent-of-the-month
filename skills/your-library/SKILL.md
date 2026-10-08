@@ -1,6 +1,6 @@
 ---
 name: your-library
-description: Consult and build an inclusive library of findings, histories, and temporary outputs. Must be called at the end of each turn.
+description: Use to query agent findings and interaction histories. Call before concluding any turn to record a turn.
 ---
 
 # Your library

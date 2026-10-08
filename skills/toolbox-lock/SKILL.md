@@ -1,6 +1,6 @@
 ---
 name: toolbox-lock
-description: Use before investigation to apply the user's preparation and verification limits.
+description: Use before exploring a task and verifying edits to know preparation and verification boundaries.
 ---
 
 # Toolbox lock
