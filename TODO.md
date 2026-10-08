@@ -12,6 +12,6 @@
     - ~~memory.md~~
     - ~~instruction-authoring.md~~
 - ~~update script~~
-- update readme
+- ~~update readme~~
 - benchmark confidence recording for decision clarity and task recovery before changing its bookkeeping requirement; user will test, and the requirement stays unchanged until then.
 - add router wrapping after the skill bodies are settled; defer activation overlap, mode persistence, and selection testing until then.

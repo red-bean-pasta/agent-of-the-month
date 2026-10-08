@@ -2,4 +2,5 @@
 /.aws/
 /.agents/tmp/
 /.agents/historybook/
-/.agents/historybook/
+/.agents/notebook/
+/.agents/handoffs/
