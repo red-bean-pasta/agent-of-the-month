@@ -34,7 +34,9 @@ Rules compete with debugging, changing requirements, and accumulated scratch wor
 
 ### Skills
 
-1. **Use concrete, observable triggers.** Vague triggers become easier to overlook as the skill list or context grows. For example: “after a test exits nonzero” > “when debugging” > “when useful”. A skill's description MUST help the agent decide when to load it.
-2. **Use a memorable name or marker word.** It compresses a behavioral pattern into a single recall cue—Matt Pocock's “leading word”.
+1. Vague triggers become easier to overlook as the skill list or context grows. For example: “after a test exits nonzero” > “when debugging” > “when useful”. A skill's description must use observable triggers to help an agent decide when to load it.
+2. A trigger describes the external cause for skill to load. It should not describe a skill's internal mechanism or state. 
+3. Distinguish pre-condition hooks from actions in descriptions. For procedural guidance or rules, use phrasing such as `Use before <action> to know <purpose/how to...>`. The word “before” ensures the skill governs the work prior to execution, whereas “when” may trigger it too late. For active behavioral mandates or tools, use imperative verbs such as `Use to query...; Call before...`.
+4. Use a memorable name or marker word. It compresses a behavioral pattern into a single recall cue.
 
 If multiple skills share the same trigger, a small lifecycle router can help select work skills and reduce independent selection decisions.
