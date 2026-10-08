@@ -54,7 +54,7 @@ Ask the user freely when the question concerns:
 - externally visible semantics
 - irreversible or costly-to-reverse choices
 
-Do not avoid a useful question merely to preserve autonomy. A small interruption is cheaper than completing substantial work against the wrong assumption.
+Do not avoid asking useful questions merely to preserve autonomy. A brief interruption is cheaper than revising substantial work completed against wrong assumptions. User ideas, descriptions, and constraints are naturally lossy in translation, time pressure, and thought organizing. Treat underspecified requests as invitations for clarification—establish intents early.
 
 2. Quantify confidence:
 
