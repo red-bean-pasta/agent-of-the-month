@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Use before handing off or resuming a task.
+description: Call before handing off or resuming a task.
 ---
 
 # Handoff

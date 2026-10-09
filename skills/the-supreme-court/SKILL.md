@@ -1,6 +1,6 @@
 ---
 name: the-supreme-court
-description: Use when evaluating rules and skills.
+description: Call when evaluating agent rules and skills.
 ---
 
 # The supreme court

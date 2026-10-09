@@ -1,6 +1,6 @@
 ---
 name: fail-loudly
-description: MUST use before handling edge cases, exceptions, and fallbacks to know when to crash versus recover.
+description: Enforced operational rule governing crash versus recovery boundaries. MUST call before handling edge cases, exceptions, or fallbacks.
 ---
 
 # Fail loudly

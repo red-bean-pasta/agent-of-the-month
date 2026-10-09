@@ -1,6 +1,6 @@
 ---
 name: lego
-description: MUST use before adding or changing methods to know how to design modular operations.
+description: Enforced operational rule governing modular design. MUST call before adding or changing methods.
 ---
 
 # Lego

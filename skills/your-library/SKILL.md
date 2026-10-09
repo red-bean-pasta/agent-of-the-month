@@ -1,6 +1,6 @@
 ---
 name: your-library
-description: Must use to query agent findings and interaction histories. Call before concluding any turn to record a turn.
+description: Enforced operational rule. Use to query past findings and interaction histories; MUST call before concluding any turn to record findings.
 ---
 
 # Your library

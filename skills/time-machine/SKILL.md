@@ -1,6 +1,6 @@
 ---
 name: time-machine
-description: MUST use before modifying files, databases, or system environments to ensure reversibility.
+description: Enforced operational rule governing reversibility. MUST call before modifying files, databases, or system environments.
 ---
 
 # Time machine
