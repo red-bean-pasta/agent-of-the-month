@@ -32,11 +32,11 @@ Rules compete with debugging, changing requirements, and accumulated scratch wor
 7. **Remove empty talk.** Do not repeat what an agent already knows or follows. Do not add vague instructions such as “write modularly” that give no concrete direction.
 8. **Resolve contradictions.** Conflicting rules require considerable inference to reconcile and make both rules harder to interpret.
 
+Subjective framing (e.g., “We believe in you” and “Take your time”) alters an agent's behavior, sometimes for the better. Warn against it, but do not treat it as inherently wrong.
+
 ### Skills
 
 1. Vague triggers become easier to overlook as the skill list or context grows. For example: “after a test exits nonzero” > “when debugging” > “when useful”. A skill's description must use observable triggers to help an agent decide when to load it.
 2. A trigger describes the external cause for skill to load. It should not describe a skill's internal mechanism or state. 
 3. Distinguish pre-condition hooks from actions in descriptions. For procedural guidance or rules, use phrasing such as `Use before <action> to know <purpose/how to...>`. The word “before” ensures the skill governs the work prior to execution, whereas “when” may trigger it too late. For active behavioral mandates or tools, use imperative verbs such as `Use to query...; Call before...`.
 4. Use a memorable name or marker word. It compresses a behavioral pattern into a single recall cue.
-
-If multiple skills share the same trigger, a small lifecycle router can help select work skills and reduce independent selection decisions.
