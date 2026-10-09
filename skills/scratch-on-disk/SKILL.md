@@ -1,6 +1,6 @@
 ---
 name: scratch-on-disk
-description: Use before starting any task to know how to use file-based scratch space.
+description: MUST use before starting any task to know how to use file-based scratch space.
 ---
 
 # Scratch on disk

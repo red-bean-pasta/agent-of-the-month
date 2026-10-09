@@ -1,6 +1,6 @@
 ---
 name: your-library
-description: Use to query agent findings and interaction histories. Call before concluding any turn to record a turn.
+description: Must use to query agent findings and interaction histories. Call before concluding any turn to record a turn.
 ---
 
 # Your library

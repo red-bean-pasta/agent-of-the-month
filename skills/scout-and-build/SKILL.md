@@ -1,6 +1,6 @@
 ---
 name: scout-and-build
-description: Use before exploring a task and formulating plans to know how to work cleanly.
+description: MUST use before exploring a task and formulating plans to know how to work cleanly.
 ---
 
 # Scout and build
@@ -29,13 +29,15 @@ The plan can be recorded in a file under `.agents/tmp/` so it is easier to modif
 
 Investigation improves project understanding, at the cost of context, time, and user experience. Too much investigation loses task focus. Resolve the tension with the following rules:
 
-**Name the intention:** Before each investigation, state its purpose in a user-visible progress message: what you are trying to learn, which next task action or decision the information supports, and what would be enough to stop investigating. If no such action or decision can be named, stop investigating and act on what is known.
+**Name the intention:** Before each investigation step, state what you're trying to determine and why—if no concrete action or decision can be named, stop and act on what is known. This prevents aimless repository exploration and keeps the user informed of progress. Use informative messages like `Checking existing utilities before adding a parsing helper` or `Tracing error paths`, not vague updates like `Working on it` or `Processing`. Don't waste inference on polishing the messages.
 
 **Don't push your luck:** Stop investigating once you can concretely plan the next task action and further information is unlikely to change it. Do not repeatedly reread unchanged material or continue inspecting merely to find something else to inspect.
 
-**Expect failures:** Follow `inspect → act → observe → correct`, not `inspect → ensure everything → act → gain a better chance at being correct`.
+**Expect failures:** Follow `inspect → act → observe → correct`, not `inspect → ensure everything → act → get a heuristic better chance at being correct`.
 
-Utilize web search when the question requires external information that is unavailable in local sources. Never include secrets, credentials, or proprietary code in queries. After four search calls without usable results, stop searching, state what remains unknown, and choose a viable next action.
+### Web search 
+
+When a task requires locally unavailable information, or involves external dependencies' bugs, quirks, limitations, or uncertain behavior, search online before improvising workarounds. Check both official documentation and third-party discussions. Never include secrets, credentials, or proprietary code in queries. After four search calls without usable results, stop searching, state what remains unknown, and choose a viable next action. 
 
 ## Making choices
 

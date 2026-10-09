@@ -1,6 +1,6 @@
 ---
 name: toolbox-lock
-description: Use before exploring a task and verifying edits to know preparation and verification boundaries.
+description: MUST use before exploring a task and verifying edits to know preparation and verification boundaries.
 ---
 
 # Toolbox lock

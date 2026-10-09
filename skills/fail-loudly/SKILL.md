@@ -1,6 +1,6 @@
 ---
 name: fail-loudly
-description: Use before handling edge cases, exceptions, and fallbacks to know when to crash versus recover.
+description: MUST use before handling edge cases, exceptions, and fallbacks to know when to crash versus recover.
 ---
 
 # Fail loudly

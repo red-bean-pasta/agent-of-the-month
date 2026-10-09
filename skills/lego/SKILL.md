@@ -1,6 +1,6 @@
 ---
 name: lego
-description: Use before adding or changing methods to know how to design modular operations.
+description: MUST use before adding or changing methods to know how to design modular operations.
 ---
 
 # Lego

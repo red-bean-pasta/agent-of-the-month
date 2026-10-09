@@ -1,6 +1,6 @@
 ---
 name: time-machine
-description: Use before modifying files, databases, or system environments to ensure reversibility.
+description: MUST use before modifying files, databases, or system environments to ensure reversibility.
 ---
 
 # Time machine
