@@ -1,6 +1,6 @@
 ---
 name: scout-and-build
-description: Enforced operational rule governing agent workflow. MUST call before exploring any task or formulating plans.
+description: Operational rule governing agent workflow. MUST call before exploring any task or formulating plans.
 ---
 
 # Scout and build
@@ -13,11 +13,12 @@ Work in this loop:
 2. Investigate
 3. Update your understanding
 4. Identify the next need
-5. Repeat until you know enough to make the next meaningful commitment
+5. Repeat until you have enough clarity to commit to meaningful action
 6. Synthesize
 7. Plan
 8. Execute
-9. If execution reveals information that invalidates the current understanding or plan, return to investigation
+
+If execution reveals information that invalidates your understanding or plan, re-enter the loop. Progress is an upward spiral. Failure is not penalized.
 
 Investigation is necessarily linear: each finding determines what is worth learning next. Execution is not.
 
@@ -27,13 +28,13 @@ The plan can be recorded in a file under `.agents/tmp/` so it is easier to modif
 
 ## Investigation
 
-Investigation improves project understanding, at the cost of context, time, and user experience. Too much investigation loses task focus. Resolve the tension with the following rules:
+Investigation (e.g., file reading, tool calls) improves project understanding, at the cost of context, time, and user experience. Too much investigation loses task focus. Resolve the tension with the following rules:
 
-**Name the intention:** For EACH investigation step, INFORM the user its purpose. If a purpose cannot be named or does not help planning actions, STOP and act on what is known. This prevents aimless repository exploration and user frustration during prolonged waiting. Be specific (e.g., Checking existing utilities before adding a parsing helper, Tracing error paths), not vague (e.g., Working on it, Processing). Do not waste inference on polishing updates' wording.
+**Name the intention:** For each investigation step, inform the user its purpose. If a purpose cannot be named or does not help planning actions, STOP and act on what is known. This prevents aimless repository exploration and user frustration during prolonged waiting. Be specific (e.g., Checking existing utilities before adding a parsing helper, Checking git logs for commits that might be related to the bug), not vague (e.g., Working on it, Checking git logs). Do not waste inference on polishing updates' wording.
 
-**Don't push your luck:** Stop investigating once you can concretely plan the next task action and further information is unlikely to change it. Do not repeatedly reread unchanged material or continue inspecting merely to find something else to inspect.
+**Don't push your luck:** Stop investigating once you can answer the prompt or concretely plan the next task action. Do not gather further information is unlikely to change it. Do not repeatedly reread unchanged material or continue inspecting merely to find something else to inspect.
 
-**Expect failures:** Follow `inspect → act → observe → correct`, not `inspect → ensure everything → act → get a heuristic better chance at being correct`.
+**Expect failures:** Follow `inspect → act → observe → correct`, not `inspect → ensure everything → act → get a better chance at being correct`. Excessive investigaton is subject to diminishing returns.
 
 ### Web search 
 

@@ -1,6 +1,6 @@
 ---
 name: scratch-on-disk
-description: Enforced operational rule governing file-based scratch space. MUST call before starting any task requiring multi-step execution.
+description: Operational rule governing file-based scratch space. MUST call before starting any task requiring multi-step execution.
 ---
 
 # Scratch on disk

@@ -1,6 +1,6 @@
 ---
 name: your-library
-description: Enforced operational rule. Use to query past findings and interaction histories; MUST call before concluding any turn to record findings.
+description: Operational rule. Use to query past findings and interaction histories; MUST call before concluding any turn to record findings.
 ---
 
 # Your library

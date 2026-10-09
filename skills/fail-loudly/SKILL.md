@@ -1,6 +1,6 @@
 ---
 name: fail-loudly
-description: Enforced operational rule governing crash versus recovery boundaries. MUST call before handling edge cases, exceptions, or fallbacks.
+description: Operational rule governing crash versus recovery boundaries. MUST call before handling edge cases, exceptions, or fallbacks.
 ---
 
 # Fail loudly

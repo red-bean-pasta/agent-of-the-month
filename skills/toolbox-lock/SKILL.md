@@ -1,6 +1,6 @@
 ---
 name: toolbox-lock
-description: Enforced operational rule governing preparation and verification boundaries. MUST call before exploring a task and verifying edits.
+description: Operational rule governing preparation and verification boundaries. MUST call before exploring a task and verifying edits.
 ---
 
 # Toolbox lock
