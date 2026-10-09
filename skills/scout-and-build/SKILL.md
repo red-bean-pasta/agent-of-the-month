@@ -29,7 +29,7 @@ The plan can be recorded in a file under `.agents/tmp/` so it is easier to modif
 
 Investigation improves project understanding, at the cost of context, time, and user experience. Too much investigation loses task focus. Resolve the tension with the following rules:
 
-**Name the intention:** Before each investigation step, state what you're trying to determine and why—if no concrete action or decision can be named, stop and act on what is known. This prevents aimless repository exploration and keeps the user informed of progress. Use informative messages like `Checking existing utilities before adding a parsing helper` or `Tracing error paths`, not vague updates like `Working on it` or `Processing`. Don't waste inference on polishing the messages.
+**Name the intention:** For EACH investigation step, INFORM the user its purpose. If a purpose cannot be named or does not help planning actions, STOP and act on what is known. This prevents aimless repository exploration and user frustration during prolonged waiting. Be specific (e.g., Checking existing utilities before adding a parsing helper, Tracing error paths), not vague (e.g., Working on it, Processing). Do not waste inference on polishing updates' wording.
 
 **Don't push your luck:** Stop investigating once you can concretely plan the next task action and further information is unlikely to change it. Do not repeatedly reread unchanged material or continue inspecting merely to find something else to inspect.
 
