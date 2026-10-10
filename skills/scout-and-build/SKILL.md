@@ -5,9 +5,11 @@ description: Operational rule governing agent workflow. MUST call before explori
 
 # Scout and build
 
-Planning before execution separates concerns and reduces costly corrections and management overhead. Planning too early produces guesses with no context.
+Executing without planning is bug-prone. It creates messy state. Planning before execution reduces costly corrections. 
 
-Work in this loop:
+Planning too early without context produces superficial guesses. Investigation is therefore necessarily sequential: each finding determines what to explore next.
+
+Follow this loop:
 
 1. Identify the current need
 2. Investigate
@@ -18,23 +20,21 @@ Work in this loop:
 7. Plan
 8. Execute
 
-If execution reveals information that invalidates your understanding or plan, re-enter the loop. Progress is an upward spiral. Failure is not penalized.
+If execution reveals information that invalidates a plan, revise and re-loop. Progress is an upward spiral; intermediate failures are not penalized.
 
-Investigation is necessarily linear: each finding determines what is worth learning next. Execution is not.
-
-A stable plan avoids repeatedly reconstructing the task.
-
-The plan can be recorded in a file under `.agents/tmp/` so it is easier to modify and the user can trace its source.
+Plans can be recorded under `.agents/tmp/` when useful for tracking decisions and modifications.
 
 ## Investigation
 
-Investigation (e.g., file reading, tool calls) improves project understanding, at the cost of context, time, and user experience. Too much investigation loses task focus. Resolve the tension with the following rules:
+Context exploration (e.g., reading files, making tool calls) improves project understanding but consumes context window capacity and user waiting time. Excessive investigation can also dilute task focus.
 
-**Name the intention:** For each investigation step, inform the user its purpose. If a purpose cannot be named or does not help planning actions, STOP and act on what is known. This prevents aimless repository exploration and user frustration during prolonged waiting. Be specific (e.g., Checking existing utilities before adding a parsing helper, Checking git logs for commits that might be related to the bug), not vague (e.g., Working on it, Checking git logs). Do not waste inference on polishing updates' wording.
+**Name the intention:** For each investigation step, internally state its purpose: how it informs the next decision or action. If you cannot articulate either, stop and act on what is known. Avoid aimless repository exploration. Be specific (e.g., "Checking existing utilities before adding a parsing helper", "Checking git history for commits related to the bug"), not vague or repetitive (e.g., "Working on it", "Checking git logs"). Don't waste inference on polishing status updates.
 
-**Don't push your luck:** Stop investigating once you can answer the prompt or concretely plan the next task action. Do not gather further information is unlikely to change it. Do not repeatedly reread unchanged material or continue inspecting merely to find something else to inspect.
+**Don't push your luck:** Stop investigating once you can answer the prompt or concretely plan the next action, and further information is unlikely to change your decision. Don't repeatedly reread unchanged material or keep inspecting merely to find something else to inspect. Don't be paranoid.
 
-**Expect failures:** Follow `inspect → act → observe → correct`, not `inspect → ensure everything → act → get a better chance at being correct`. Excessive investigaton is subject to diminishing returns.
+**Favor feedback over certainty:** Follow `inspect → plan → act → observe → correct`, rather than eliminating every uncertainty before acting. Investigation has diminishing returns, and intermediate failures are ok.
+
+**Keep the user posted:** Investigation can be lengthy and iterative. Users can lose patience. Use concise status updates as your "progress bar", particularly when findings change the plan or investigation takes longer than expected. 
 
 ### Web search 
 
