@@ -51,36 +51,45 @@ Skills hopefully make an AI agent employee-of-the-month.
 
 Tested with Gemini 3.8 Flash (Medium).
 
-1. scout-and-build:
-   - Significantly reduces excessive investigation.
-   - Planning before execution remains unverified.
-   - Clarifying questions are asked without becoming excessive.
-   - Web searches and lookups of third-party discussions remain unverified.
-   - Odds-based confidence calculation (3:1 rule) remains unverified.
-2. lego:
-   - Significantly improves modular design and reduces argument hell.
-   - Optional post-implementation refactoring is never triggered.
-3. your-library:
-   - Historybook entries are consistently recorded.
-   - Notebook entries are often superficial.
-   - Existing notes and history are rarely consulted.
-4. scratch-on-disk:
-   - Significantly increases the use of temporary test scripts in `.agents/tmp/`.
-   - Redirecting lengthy tool outputs to files was not observed.
-5. toolbox-lock:
-   - Pre and Post modes are consistently followed throughout conversations.
-   - Verification boundaries (`implemented`, `inspected`, and `verified`) remain clearly distinguished.
-6. handoff:
-   - Produces excellent session handoffs.
-7. fail-loudly:
-   - Significantly reduces silent error handling and overly defensive guards.
-8. time-machine:
-   - Recovery triggers remain unverified in practice.
-   - Docker is never used.
-9. the-supreme-court:
-   - Provides an excellent benchmark for evaluating rules and skills.
-10. regent:
-    - Enforces conversation loading and skill loading at session start.
+scout-and-build:
+  - Significantly reduces excessive investigation.
+  - Planning before execution remains unverified.
+  - Clarifying questions are asked without becoming excessive.
+  - Web searches and lookups of third-party discussions remain unverified.
+  - Odds-based confidence calculation (3:1 rule) remains unverified.
+  
+lego:
+  - Significantly improves modular design and reduces argument hell.
+  - Optional post-implementation refactoring is never triggered.
+  
+your-library:
+  - Historybook entries are consistently recorded.
+  - Notebook entries are often superficial.
+  - Existing notes and history are rarely consulted.
+  
+scratch-on-disk:
+  - Significantly increases the use of temporary test scripts in `.agents/tmp/`.
+  - Redirecting lengthy tool outputs to files was not observed.
+  
+toolbox-lock:
+  - Pre and Post modes are consistently followed throughout conversations.
+  - Verification boundaries (`implemented`, `inspected`, and `verified`) remain clearly distinguished.
+  
+handoff:
+  - Produces excellent session handoffs.
+  
+fail-loudly:
+  - Significantly reduces silent error handling and overly defensive guards.
+  
+time-machine:
+  - Recovery triggers remain unverified in practice.
+  - Docker is never used.
+  
+the-supreme-court:
+  - Provides an excellent benchmark for evaluating rules and skills.
+  
+regent:
+  - Enforces conversation loading and skill loading at session start.
 
 Skill effects diminish over long conversations, with agents increasingly reverting to their default behavior.
 
@@ -118,7 +127,7 @@ Sync specific skills only:
 - `-a, --all`: Install to all detected agents (Antigravity, Claude, Codex, Copilot).
 - `-d, --dest <PATH...>`: Sync to explicit target directory/directories.
 - `-s, --skill <SKILL...>`: Sync specific skill(s) instead of all skills.
-- `-x, --exclude <SKILL...>`: Skill(s) to exclude from sync.
+- `-e, --exclude <SKILL...>`: Skill(s) to exclude from sync.
 - `-f, --force`: Overwrite existing skills in destination (skipped by default).
 - `-n, --dry-run`: Preview file actions without copying.
 - `-l, --list`: List detected agent directories.

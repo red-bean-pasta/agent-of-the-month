@@ -44,9 +44,9 @@ Options:
   -l, --list            Scan and print detected agent state directories and exit
   -f, --force           Overwrite existing skills in target directories
   -a, --all             Install to all detected agents in auto-scan mode
-  -s, --skill [SKILL..] Specific skill(s) to sync (defaults to all under skills/)
-  -e, --exclude [SK..]  Skill(s) to exclude from sync
-  -d, --dest  [PATH..]  Explicit target directory/directories (skips auto-scan)
+  -s, --skill [SKILL...] Specific skill(s) to sync (defaults to all under skills/)
+  -e, --exclude [SKILL...]  Skill(s) to exclude from sync
+  -d, --dest  [PATH...]  Explicit target directory/directories (skips auto-scan)
 EOF
 }
 
