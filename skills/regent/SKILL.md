@@ -5,6 +5,10 @@ description: Call at every conversation start.
 
 # Regent
 
-Some skills function as rules, just like those defined in `.agents/rules/` and `AGENTS.md`. They are packaged as skills for extensibility.
+Some skills serve as operational rules, same as those defined in `.agents/rules/` and `AGENTS.md`. They are packaged as skills for extensibility.
 
-You MUST read and follow such skills at conversation start, regardless of the current task. Identify them by descriptions—they usually contain terms such as "must", "operational rule", or "enforced". Their instructions remain applicable throughout the conversation. Do not wait for task-specific relevance before reading them.
+At the start of every conversation, you MUST identify and read all such skills, regardless of task relevance.
+
+Identify rule skills by their descriptions. Common indicators include "must", "operational rule", and "enforced", but the description's meaning takes precedence over keyword matching.
+
+Once loaded, follow their instructions throughout the conversation.

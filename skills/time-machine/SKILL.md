@@ -44,6 +44,20 @@ For nontrivial tasks, record a baseline of the original behavior and state (e.g.
 
 Skip baseline recording for trivial changes or mode restrictions.
 
-### System changes
+### System Changes
 
-Use rootless Docker when modifying system configurations, services and packages. Check availability with `docker info --format '{{.SecurityOptions}}'` and confirm `name=rootless` is present. If unavailable, do not fall back to rootful Docker or the host, but choose a solution that avoids system changes. If none works, stop and explain to user.
+Use **rootless Docker** when a task requires:
+- Building or reproducing a system environment.
+- Experimenting and modifying system configurations, services, or packages.
+- Ephemeral system-level changes.
+- Operations that may disrupt the host.
+
+Check Docker's security options using:
+
+```bash
+docker info --format '{{.SecurityOptions}}'
+```
+
+Confirm that the output contains `name=rootless`.
+
+If rootless Docker is unavailable, **stop and inform the user**. Do not fall back to rootful Docker or continue directly on the host.
