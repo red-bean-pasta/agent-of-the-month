@@ -20,7 +20,8 @@ Skills hopefully make an AI agent employee-of-the-month.
 - **[handoff](skills/handoff/):** Hand off conversation and task goals, context, and reasoning across agent sessions.
 - **[fail-loudly](skills/fail-loudly/):** Fail fast on internal contract violations while reserving graceful handling for external uncertainties; prohibit silent fallbacks, guessed defaults, and swallowed exceptions.
 - **[time-machine](skills/time-machine/):** Establish recovery checkpoints and pre-change baselines before editing; confine system mutations to rootless Docker.
-- **[the-supreme-court](skills/the-supreme-court/):** Constitutional benchmark for evaluating rules and skills—because *"being in context $\neq$ being attended to $\neq$ being obeyed"*.
+- **[the-supreme-court](skills/the-supreme-court/):** Constitutional benchmark for evaluating rules and skills—because *being in context $\neq$ being attended to $\neq$ being obeyed*.
+- **[regent](skills/regent/):** Must-load skill enforcing evaluating skills as rules.
 
 ## Ideas
 - **Contexts and reasons** help agents understand intent and generalize.
@@ -50,7 +51,7 @@ Sync to all detected agents:
 
 Sync to a specific project directory:
 ```bash
-./scripts/sync.sh -d ~/my-project/
+./scripts/sync.sh -d ~/my-project/.agents/skills/
 ```
 
 Sync specific skills only:
@@ -62,6 +63,7 @@ Sync specific skills only:
 - `-a, --all`: Install to all detected agents (Antigravity, Claude, Codex, Copilot).
 - `-d, --dest <PATH...>`: Sync to explicit target directory/directories.
 - `-s, --skill <SKILL...>`: Sync specific skill(s) instead of all skills.
+- `-x, --exclude <SKILL...>`: Skill(s) to exclude from sync.
 - `-f, --force`: Overwrite existing skills in destination (skipped by default).
 - `-n, --dry-run`: Preview file actions without copying.
 - `-l, --list`: List detected agent directories.
