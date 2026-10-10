@@ -16,3 +16,5 @@
 - benchmark confidence recording for decision clarity and task recovery before changing its bookkeeping requirement; user will test, and the requirement stays unchanged until then.
 - ~~add router wrapping after the skill bodies are settled; defer activation overlap, mode persistence, and selection testing until then.~~ The cons of a router outweighs its pros. Agent should already handle a short-to-medium list of skills with ease. Router introduces directory traverse, tool call latency and maintenance overhead.
 - ~~add -x for skill exclusion in sync.sh~~
+- ~~clarify rootless docker use cases: explicit system mutations should not be contained.~~
+- add class abstraction to lego.
