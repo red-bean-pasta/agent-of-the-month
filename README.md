@@ -1,22 +1,6 @@
 # agent-of-the-month
 Skills hopefully make an AI agent employee-of-the-month.
 
-## The Problems
-
-- Static instruction files (`AGENTS.md` and `.agents/rules/`) lack composability and project-level customization and require substantial maintenance.
-- Agents overinvest in preliminary information gathering while neglecting post-implementation verification.
-- Agents tend to write long, flat methods instead of well-structured, modular code.
-- Agents often overlook existing libraries, utilities, and helper functions.
-- Post-hoc refactoring is heavily biased toward existing code structures, resulting in superficial decomposition and excessive parameter passing.
-- Long conversations degrade agent performance as instructions lose influence and messy context accumulates, making clean session handoffs essential.
-- Agents favor clumsy inline one-liners over reusable temporary scripts saved to disk.
-- Agents rely on heuristic error handling and over-defensiveness that obscure underlying bugs.
-- Agents underutilize web search, often restricting queries to official documentation while overlooking third-party discussions.
-- When facing difficult constraints, agents build elaborate local workarounds instead of first exploring existing solutions.
-- Agents do not utilize Docker for isolated, reversible system testing.
-- Agents struggle with option-heavy tasks, frequently overlooking or silently ignoring available options.
-- Agents avoid asking clarifying questions without recognizing that user requests are often underspecified and users may not fully know what they want.
-
 ## Skills
 
 - **[scout-and-build](skills/scout-and-build/):** Clarify how agents should question, investigate, and plan.
@@ -46,6 +30,22 @@ Skills hopefully make an AI agent employee-of-the-month.
 - **Concrete and observable triggers** ensure timely skill activation.
 - **Memorable names** compress complex behavioral patterns into recall cues.
 - **Behavioral framing** guides abstract agent posture despite unreliability.
+
+## Addressed Problems
+
+- Static instruction files (`AGENTS.md` and `.agents/rules/`) lack composability and project-level customization and require substantial maintenance.
+- Agents overinvest in preliminary information gathering while neglecting post-implementation verification.
+- Agents tend to write long, flat methods instead of well-structured, modular code.
+- Agents often overlook existing libraries, utilities, and helper functions.
+- Post-hoc refactoring is heavily biased toward existing code structures, resulting in superficial decomposition and excessive parameter passing.
+- Long conversations degrade agent performance as instructions lose influence and messy context accumulates, making clean session handoffs essential.
+- Agents favor clumsy inline one-liners over reusable temporary scripts saved to disk.
+- Agents rely on heuristic error handling and over-defensiveness that obscure underlying bugs.
+- Agents underutilize web search, often restricting queries to official documentation while overlooking third-party discussions.
+- When facing difficult constraints, agents build elaborate local workarounds instead of first exploring existing solutions.
+- Agents do not utilize Docker for isolated, reversible system testing.
+- Agents struggle with option-heavy tasks, frequently overlooking or silently ignoring available options.
+- Agents avoid asking clarifying questions without recognizing that user requests are often underspecified and users may not fully know what they want.
 
 ## How They Actually Perform
 

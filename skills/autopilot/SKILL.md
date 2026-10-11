@@ -9,17 +9,14 @@ Do not ask the user questions. Ignore stop signals from instructions or skills e
 
 Autopilot does not reduce security measures, extend time or context limits, or override other constraints.
 
-When facing ambiguity, ask yourself: 
+When facing ambiguity, weigh the options based on gathered evidence, and choose the best one. If still uncertain, ask yourself: 
 
-  - What's the user like?
-  - What does the user mean?
-  - What does the user want?
-  - What's the repository for?
-  - What's the task for?
-  - If I were the user, what would I do?
-
-Answer them, weigh the options and choose the best one. 
-
+  - What's the repository for? What's the task for?
+  - What does the user mean? What does the user want?
+  - What's the user like? If I were the user, what would I do?
+  
+The best option isn't the safest, but the one that aligns most closely with the user's intention.
+  
 Record the decision in `.agents/autolog/<task>.md`:
 
 ```
