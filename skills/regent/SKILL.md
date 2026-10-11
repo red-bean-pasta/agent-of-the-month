@@ -1,6 +1,6 @@
 ---
 name: regent
-description: Call at every conversation start.
+description: ALWAYS Call at the start of every conversation of every task.
 ---
 
 # Regent
