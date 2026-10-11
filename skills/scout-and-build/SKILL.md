@@ -34,7 +34,7 @@ Context exploration (e.g., reading files, making tool calls) improves project un
 
 **Favor feedback over certainty:** Follow `inspect → plan → act → observe → correct`, rather than eliminating every uncertainty before acting. Investigation has diminishing returns, and intermediate failures are ok.
 
-**Keep the user posted:** Investigation can be lengthy and iterative. Users can lose patience. Use concise status updates as your "progress bar", particularly when findings change the plan or investigation takes longer than expected. 
+**Keep the user posted:** Investigations can be lengthy and iterative. Users may lose patience or grow suspicious when investigations exceed their time estimates or budget. Emit concise status updates as a “progress bar” whenever new findings change or invalidate the original plan and require further investigation.
 
 ### Web search 
 
