@@ -36,10 +36,6 @@ Context exploration (e.g., reading files, making tool calls) improves project un
 
 **Keep the user posted:** Investigations can be lengthy and iterative. Users may lose patience or grow suspicious when investigations exceed their time estimates or budget. Emit concise status updates as a “progress bar” whenever new findings change or invalidate the original plan and require further investigation.
 
-### Web search 
-
-When a task requires locally unavailable information, or involves external dependencies' bugs, quirks, limitations, or uncertain behavior, search online before improvising workarounds. Check both official documentation and third-party discussions. Never include secrets, credentials, or proprietary code in queries. After four search calls without usable results, stop searching, state what remains unknown, and choose a viable next action. 
-
 ## Making choices
 
 A task can branch in many directions. Make routine choices after sufficient investigation and within established constraints. For remaining uncertainties:

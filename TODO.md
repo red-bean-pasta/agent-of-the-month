@@ -21,3 +21,5 @@
 - add class abstraction to lego.
 - add script book to your-library.
 - extend notebooking from technical codings to general notes.
+- test sets
+- subagent
