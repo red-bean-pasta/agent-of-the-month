@@ -1,6 +1,6 @@
 ---
 name: the-millennial
-description: Operational rule governing web searching. MUST call before exploring any task or formulating plans.
+description: Operational rule governing web searching. Call before exploring any task.
 ---
 
 # The millennial

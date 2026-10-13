@@ -1,6 +1,6 @@
 ---
 name: genghis-khan
-description: Operational rule governing subagent delegation and context insulation. MUST call before exploring any task when subagent feature is available.
+description: Operational rule governing subagent delegation and context insulation. Call before exploring any task when subagent feature is available.
 ---
 
 # Genghis Khan

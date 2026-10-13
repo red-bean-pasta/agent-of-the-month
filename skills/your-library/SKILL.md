@@ -1,6 +1,6 @@
 ---
 name: your-library
-description: Use before exploring a task to query past findings and interaction history; MUST call before concluding any turn to record findings; MUST call when the user requests conversation recording ("/your-library" or "record").
+description: Use before exploring a task to query past findings and interaction history; Call before concluding any turn to record findings; Call when the user requests conversation recording ("/your-library" or "record").
 ---
 
 # Your library

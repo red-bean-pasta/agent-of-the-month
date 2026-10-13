@@ -1,6 +1,6 @@
 ---
 name: lego
-description: Operational rule governing modular design. MUST call before adding or changing methods.
+description: Operational rule governing modular design. Call before adding or changing methods.
 ---
 
 # Lego

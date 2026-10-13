@@ -1,6 +1,6 @@
 ---
 name: scout-and-build
-description: Operational rule governing agent workflow. MUST call before exploring any task or formulating plans.
+description: Operational rule governing your workflow. Call before exploring any task or formulating plans.
 ---
 
 # Scout and build
