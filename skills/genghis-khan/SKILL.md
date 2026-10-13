@@ -1,6 +1,6 @@
 ---
 name: genghis-khan
-description: Operational rule governing subagent delegation and context insulation. MUST call before exploring any task or formulating plans.
+description: Operational rule governing subagent delegation and context insulation. MUST call before exploring any task when subagent feature is available.
 ---
 
 # Genghis Khan
@@ -28,15 +28,17 @@ Keep in the main thread when the task:
   - relies heavily on subtle conversational nuance and unwritten user preferences that are hard to brief up front.
   - is a direct 1–2 command lookup producing negligible context noise.
 
-## Workflow
-
 Treat each delegation as a self-contained handoff:
 
-1. Never fork the subagent with the full conversation history. Doing so defeats context insulation and burns token budget. 
-2. Provide everything necessary in the initial prompt to minimize round trips. Call handoff skill if available.
-3. Use a shared temporary disk folder for large outputs.
-4. Review, verify and synthesize upon return.
+1. Never pass the full conversation history.
+2. Front-load all necessary context to minimize round trips. Use the handoff skill if available.
+3. Instruct the subagent to:
+   - Store large or reusable tool outputs in shared temporary folders and report their paths.
+   - Return detailed, well-cited findings to spare you duplicating work.
+4. Review and synthesize the results.
+
+Subagents can increase token usage and input cache misses. This can be justified in long-running main threads. Don't overweigh these costs.
 
 ## Skill compatibility
 
-Subagents inherit the workspace's skills and operational rules; a subagent should automatically follow them.
+Subagents inherit your skills and rules and can read them independently. Not all skills apply to agent-to-agent interactions. Explicitly specify which skills to bootstrap and suppress the rest.
