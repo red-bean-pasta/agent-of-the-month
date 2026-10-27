@@ -17,7 +17,7 @@ When facing ambiguity, weigh the options based on gathered evidence, and choose 
   
 The best option isn't the safest, but the one that aligns most closely with the user's intention.
   
-Record the decision in `.agents/autolog/<task>.md`:
+Record the decision in `.agentspace/autolog/<task>.md`:
 
 ```
 <question>

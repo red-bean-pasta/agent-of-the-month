@@ -10,7 +10,7 @@ A library system prevents wasteful rediscovery, accelerates development, and sur
 Library layout:
 
 ```text
-.agents/
+.agentspace/
   notebook/
     <topic>.md
   historybook/
@@ -25,11 +25,11 @@ Before exploring or planning a task, query existing records to avoid rediscoveri
 
 1. Search contents with context to match findings alongside their dates and keywords:
    ```bash
-   rg -C 2 '<keyword1|keyword2>' .agents/notebook .agents/historybook
+   rg -C 2 '<keyword1|keyword2>' .agentspace/notebook .agentspace/historybook
    ```
 2. Search filenames and inspect related files:
    ```bash
-   rg --files .agents/notebook .agents/historybook | rg '<keyword1|keyword2>'
+   rg --files .agentspace/notebook .agentspace/historybook | rg '<keyword1|keyword2>'
    ```
 3. If returned info does not suffice, start a fresh investigation.
 
@@ -57,7 +57,7 @@ Create a new file when a finding introduces a new topic, or when an existing top
 
 Each finding entry should contain no newlines. This is vital for `rg -C 2` to capture complete entries.
 
-Example entry:
+Entry format:
 
 ```markdown
 ## [YYYY-MM-DD]
@@ -73,9 +73,9 @@ Name files using verb-based lowercase kebab-case that summarizes the overall tas
 
 Reference technical findings from `notebook/`; do not duplicate them here.
 
-Never record secrets, credentials, or sensitive personal data, as `.agents/` may be git pushed.
+Never record secrets, credentials, or sensitive personal data, as `.agentspace/` may be git pushed.
 
-Example entry:
+Entry format:
 
 ```markdown
 ## <Specific Subtask or Question> [YYYY-MM-DD]

@@ -7,7 +7,7 @@ description: Call before handing off or resuming a task.
 
 Handoffs can lose context and continuity. Preserve information that would be expensive, risky, or impossible for the next agent to reconstruct. Preserve the reasoning, not just the conclusion.
 
-All handoffs should be at `.agents/handoffs/<action>.md`. Action-based filenames should describe the task. No cleanup is required.
+All handoffs should be at `.agentspace/handoffs/<action>.md`. Action-based filenames should describe the task. No cleanup is required.
 
 ## Quick start
 

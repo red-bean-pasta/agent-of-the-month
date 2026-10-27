@@ -5,7 +5,7 @@ description: Operational rule governing file-based scratch space. Call before st
 
 # Scratch on disk
 
-During a run, use `.agents/tmp/` as file-based scratch space for:
+During a run, use `.agentspace/tmp/` as file-based scratch space for:
 
 - raw results
 - long outputs

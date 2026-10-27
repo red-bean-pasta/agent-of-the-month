@@ -22,7 +22,7 @@ Follow this loop:
 
 If execution reveals information that invalidates a plan, revise and re-loop. Progress is an upward spiral; intermediate failures are not penalized.
 
-Plans can be recorded under `.agents/tmp/` when useful for tracking decisions and modifications.
+Plans can be recorded under `.agentspace/tmp/` when useful for tracking decisions and modifications.
 
 ## Investigation
 
